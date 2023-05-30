@@ -1,93 +1,70 @@
-import { Layout as LayoutAnt, Menu, Breadcrumb } from 'antd'
-import Icon from '@ant-design/icons'
-const { SubMenu } = Menu
-const { Header, Content, Sider } = LayoutAnt
+import { Layout as LayoutAnt, Menu, Button, theme } from 'antd'
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons'
+import { useState } from 'react'
+const { Header, Sider, Content } = LayoutAnt
 
 export default function Layout() {
+  const [collapsed, setCollapsed] = useState(false)
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken()
   return (
-    <LayoutAnt style={{ height: '100vh', width: '100vw' }}>
-      <Header className="header">
-        <div className="logo" />
+    <LayoutAnt style={{ height: '100%' }}>
+      <Sider trigger={null} collapsible collapsed={collapsed}>
+        <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={['2']}
-          style={{ lineHeight: '64px' }}
-        >
-          <Menu.Item key="1">nav 1</Menu.Item>
-          <Menu.Item key="2">nav 2</Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
-        </Menu>
-      </Header>
+          mode="inline"
+          defaultSelectedKeys={['1']}
+          items={[
+            {
+              key: '1',
+              icon: <UserOutlined />,
+              label: 'nav 1',
+            },
+            {
+              key: '2',
+              icon: <VideoCameraOutlined />,
+              label: 'nav 2',
+            },
+            {
+              key: '3',
+              icon: <UploadOutlined />,
+              label: 'nav 3',
+            },
+          ]}
+        />
+      </Sider>
       <LayoutAnt>
-        <Sider width={200} style={{ background: '#fff' }}>
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
-            style={{ height: '100%', borderRight: 0 }}
-          >
-            <SubMenu
-              key="sub1"
-              title={
-                <span>
-                  <Icon type="user" />
-                  subnav 1
-                </span>
-              }
-            >
-              <Menu.Item key="1">option1</Menu.Item>
-              <Menu.Item key="2">option2</Menu.Item>
-              <Menu.Item key="3">option3</Menu.Item>
-              <Menu.Item key="4">option4</Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="sub2"
-              title={
-                <span>
-                  <Icon type="laptop" />
-                  subnav 2
-                </span>
-              }
-            >
-              <Menu.Item key="5">option5</Menu.Item>
-              <Menu.Item key="6">option6</Menu.Item>
-              <Menu.Item key="7">option7</Menu.Item>
-              <Menu.Item key="8">option8</Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="sub3"
-              title={
-                <span>
-                  <Icon type="notification" />
-                  subnav 3
-                </span>
-              }
-            >
-              <Menu.Item key="9">option9</Menu.Item>
-              <Menu.Item key="10">option10</Menu.Item>
-              <Menu.Item key="11">option11</Menu.Item>
-              <Menu.Item key="12">option12</Menu.Item>
-            </SubMenu>
-          </Menu>
-        </Sider>
-        <LayoutAnt style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <Content
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
             style={{
-              background: '#fff',
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
+              fontSize: '16px',
+              width: 32,
+              height: 32,
+              marginLeft: 24,
             }}
-          >
-            Content
-          </Content>
-        </LayoutAnt>
+          />
+        </Header>
+        <Content
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            minHeight: 280,
+            background: colorBgContainer,
+          }}
+        >
+          Content
+        </Content>
       </LayoutAnt>
     </LayoutAnt>
   )

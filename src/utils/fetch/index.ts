@@ -1,3 +1,5 @@
+import { stringify } from 'qs'
+
 const urlQueryBind = (url: string, query: { [x: string]: string }) => {
   const urlPack = new URL(url)
   urlPack.search = new URLSearchParams(query).toString()
@@ -37,5 +39,24 @@ export const fetchGet = (
       accetp: 'application/json',
     },
   }
+  return Promise.race([fetch(url, fetchConfig), timeoutFetchFactory(10000)])
+}
+
+export const fetchPost = (
+  url: string,
+  params?: { [x: string]: any },
+  conf?: Omit<RequestInit, 'method'>
+) => {
+  url = BASE_API + url
+
+  const fetchConfig: RequestInit = {
+    method: 'POST',
+    headers: {
+      accetp: 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: stringify(params),
+  }
+
   return Promise.race([fetch(url, fetchConfig), timeoutFetchFactory(10000)])
 }

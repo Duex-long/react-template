@@ -1,4 +1,4 @@
-import { fetchGet } from '@/utils/fetch'
+import { fetchGet, fetchPost } from '@/utils/fetch'
 import './Login.less'
 import { Button, Form, Input, InputNumber, message } from 'antd'
 import uuidv4 from 'uuid-random'
@@ -34,13 +34,14 @@ const validateMessages = {
 const register = async (values: FormType) => {
   console.log('register')
   try {
-    const publicKey = await getPublicKey()
+    const [publicKey, cacheKey] = await getPublicKey()
     const password = rsaEncrypt(publicKey, values.login.password)
-    // const response = await fetchGet('/auth/login', {
-    //   username: values.login.name,
-    //   password,
-    // })
-    // const { data } = await response.json()
+    const response = await fetchPost('/auth/login', {
+      cacheKey,
+      username: values.login.name,
+      password,
+    })
+    const { data } = await response.json()
 
     console.log(password, 'token')
   } catch (e) {
@@ -53,7 +54,7 @@ const getPublicKey = async () => {
   const cacheKey = uuidv4()
   const response = await fetchGet('/auth/getPublicKey', { cacheKey })
   const { data } = await response.json()
-  return data
+  return [data, cacheKey]
 }
 
 /**加密 */
