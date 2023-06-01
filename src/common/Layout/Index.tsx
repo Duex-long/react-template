@@ -1,4 +1,4 @@
-import { Layout as LayoutAnt, Menu, Button, theme } from 'antd'
+import { Layout as LayoutAnt, Menu, Button, theme, MenuProps } from 'antd'
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -6,14 +6,18 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons'
-import { useState } from 'react'
+import { ReactPropTypes, useState, FC } from 'react'
 const { Header, Sider, Content } = LayoutAnt
 
-export default function Layout() {
+const Layout: FC<{ children?: JSX.Element | string }> = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false)
   const {
     token: { colorBgContainer },
   } = theme.useToken()
+
+  const onClick: MenuProps['onClick'] = e => {
+    console.log('click', e)
+  }
   return (
     <LayoutAnt style={{ height: '100%' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -22,6 +26,7 @@ export default function Layout() {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
+          onClick={onClick}
           items={[
             {
               key: '1',
@@ -41,7 +46,7 @@ export default function Layout() {
           ]}
         />
       </Sider>
-      <LayoutAnt>
+      <LayoutAnt style={{ padding: 0, background: '#c9c9c9' }}>
         <Header style={{ padding: 0, background: colorBgContainer }}>
           <Button
             type="text"
@@ -63,9 +68,11 @@ export default function Layout() {
             background: colorBgContainer,
           }}
         >
-          Content
+          {children || 'CONTENT'}
         </Content>
       </LayoutAnt>
     </LayoutAnt>
   )
 }
+
+export default Layout

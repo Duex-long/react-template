@@ -13,11 +13,6 @@ const layout = {
   wrapperCol: { span: 16 },
 }
 
-/** Submit回调 */
-const onFinish = (values: FormType) => {
-  console.log(values)
-}
-
 /** 验证规则 */
 const validateMessages = {
   required: '${label} is required!',
@@ -28,25 +23,6 @@ const validateMessages = {
   number: {
     range: '${label} must be between ${min} and ${max}',
   },
-}
-
-/** Login */
-const register = async (values: FormType) => {
-  console.log('register')
-  try {
-    const [publicKey, cacheKey] = await getPublicKey()
-    const password = rsaEncrypt(publicKey, values.login.password)
-    const response = await fetchPost('/auth/login', {
-      cacheKey,
-      username: values.login.name,
-      password,
-    })
-    const { data } = await response.json()
-
-    console.log(password, 'token')
-  } catch (e) {
-    console.log(e)
-  }
 }
 
 /**获取公钥 */
@@ -68,30 +44,70 @@ const rsaEncrypt = (publicKey: string, target: string) => {
 
 export default function Login() {
   const [form] = Form.useForm<FormType>()
+  const [messageApi, contextHolder] = message.useMessage()
+  const key = 'updatable'
+
+  /** Login */
+  const register = async (values: FormType) => {
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Loading...',
+    })
+    try {
+      const [publicKey, cacheKey] = await getPublicKey()
+      const password = rsaEncrypt(publicKey, values.login.password)
+      const response = await fetchPost('/auth/login', {
+        cacheKey,
+        username: values.login.name,
+        password,
+      })
+      const { data } = await response.json()
+      messageApi.open({
+        key,
+        type: 'success',
+        content: 'Loaded!',
+        duration: 2,
+      })
+      console.log(data, 'token')
+    } catch (e) {
+      console.log(e)
+      messageApi.open({
+        key,
+        type: 'error',
+        content: 'Loaded!',
+        duration: 2,
+      })
+    }
+  }
+
   return (
-    <div className="Login">
-      <div className="Login__form">
-        <Form
-          {...layout}
-          name="nest-messages"
-          onFinish={register}
-          style={{ maxWidth: 600 }}
-          validateMessages={validateMessages}
-          form={form}
-        >
-          <Form.Item name={['login', 'name']} label="Name" rules={[{ required: true }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name={['login', 'password']} label="password" rules={[{ required: true }]}>
-            <Input.Password placeholder="input password" />
-          </Form.Item>
-          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
+    <>
+      {contextHolder}
+      <div className="Login">
+        <div className="Login__form">
+          <Form
+            {...layout}
+            name="nest-messages"
+            onFinish={register}
+            style={{ maxWidth: 600 }}
+            validateMessages={validateMessages}
+            form={form}
+          >
+            <Form.Item name={['login', 'name']} label="Name" rules={[{ required: true }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name={['login', 'password']} label="password" rules={[{ required: true }]}>
+              <Input.Password placeholder="input password" />
+            </Form.Item>
+            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
