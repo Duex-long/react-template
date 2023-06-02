@@ -4,13 +4,24 @@ import { PathRouteProps } from 'react-router-dom'
 interface ReactRoute extends PathRouteProps {
   name?: string
   icon?: string
-  component: () => JSX.Element
+  redirect?: string
+  component?: () => JSX.Element
 }
-const routes: ReactRoute[] = [
+const loginRoutes: ReactRoute[] = [
+  {
+    path: '',
+    redirect: '/login',
+    icon: 'ApiOutlined',
+  },
   {
     path: '/login',
     component: Login,
     name: 'Login',
+    icon: 'ApiOutlined',
+  },
+  {
+    path: '*',
+    redirect: '/login',
     icon: 'ApiOutlined',
   },
 ]
@@ -24,7 +35,7 @@ const permissionRoutes: ReactRoute[] = [
   },
 ]
 const getPermissionRoutes = () => {
-  return routes
+  return loginRoutes
 }
 
 export default getPermissionRoutes

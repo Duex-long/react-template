@@ -4,18 +4,20 @@ import './App.css'
 import Login from '@/pages/login/Index'
 import Main from '@/pages/main/Index'
 import Article from '@/pages/main/Article/Index'
+import getPermissionRoutes from '@/router'
 
 function App() {
   const [count, setCount] = useState(0)
 
+  const routes = getPermissionRoutes()
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/main" element={<Main />}>
-        <Route index path="" element={<Navigate to="article" />}></Route>
-        <Route path="article" element={<Article />} />
-        <Route path="*" element={<Navigate to="article" />}></Route>
-      </Route>
+      {routes.map(item => (
+        <Route
+          path={item.path}
+          element={item.redirect ? <Navigate to={item.redirect} /> : <item.component />}
+        />
+      ))}
     </Routes>
   )
 }
