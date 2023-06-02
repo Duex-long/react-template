@@ -26,7 +26,7 @@ const timeoutFetchFactory = (delay?: number): Promise<Response> => {
 
 export const fetchGet = (
   url: string,
-  query?: { [x: string]: string },
+  query?: { [x: string]: any },
   conf?: Omit<RequestInit, 'method'>
 ) => {
   url = BASE_API + url
@@ -58,5 +58,16 @@ export const fetchPost = (
     body: stringify(params),
   }
 
+  return Promise.race([fetch(url, fetchConfig), timeoutFetchFactory(10000)])
+}
+
+export const fetchDetele = (url: string) => {
+  url = BASE_API + url
+  const fetchConfig: RequestInit = {
+    method: 'DELETE',
+    headers: {
+      accetp: '*',
+    },
+  }
   return Promise.race([fetch(url, fetchConfig), timeoutFetchFactory(10000)])
 }
