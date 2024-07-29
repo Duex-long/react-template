@@ -1,11 +1,36 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import App from './App.tsx'
-import './index.css'
+import '@/assets/less/index.less'
+import 'normalize.css'
+import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom'
+import App from '@/App.tsx'
+import Home from '@/pages/home/index.tsx'
+// import { checkLogin } from '@/utils/hooks/assign'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+    // loader: () =>
+    //   new Promise((resolve) => {
+    //     checkLogin().then(
+    //       (res) => {
+    //         if (!res) redirect('/login')
+    //         resolve(res)
+    //       },
+    //       () => {
+    //         redirect('login')
+    //         resolve(false)
+    //       }
+    //     )
+    //   }),
+  },
+])
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App>
+      <RouterProvider router={router} />
+    </App>
+  </React.StrictMode>
 )

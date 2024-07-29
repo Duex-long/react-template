@@ -1,0 +1,246 @@
+.loading-runner {
+  .relative;
+  .full-page;
+  .flex-c-c;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.loading-runner-container {
+  .relative;
+  height: 65px;
+  width: 65px;
+  //   background-color: #000;
+  overflow: hidden;
+  animation: throw 1.6s linear 0s infinite normal;
+}
+.runnder-wrapper {
+  --rotate-deg: 35deg;
+  .full-page;
+  .relative;
+  transform: rotate(var(--rotate-deg));
+}
+
+.runner-entity {
+  .absolute;
+  background-color: #fff;
+}
+.runner-header {
+  height: 8px;
+  width: 8px;
+  border-radius: 100%;
+  left: calc(50% - 4px);
+  top: 8px;
+  transform-origin: center;
+
+  //   animation: byte 0.6s linear 0s infinite normal;
+}
+
+.runner-body {
+  height: 20px;
+  width: 8px;
+  border-radius: 8px;
+  top: 20px;
+  left: calc(50% - 2.5px);
+  //   animation: byte 0.6s linear 0s infinite normal;
+}
+.runner-hand {
+  width: 14px;
+  height: 4px;
+  border-radius: 6px;
+}
+
+.runner-hand::before {
+  .absolute;
+  content: '';
+  width: 4px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.runner-hand.right::before {
+  right: 0px;
+  top: -6px;
+}
+
+.runner-hand.left::before {
+  left: 0px;
+  bottom: -5px;
+  transform-origin: top;
+  transform: rotate(40deg);
+}
+
+.runner-hand.right {
+  top: 0px;
+  right: -12px;
+  transform-origin: left;
+  //   animation: shake-right 0.6s linear 0s infinite normal;
+}
+
+.runner-hand.left {
+  width: 12px;
+  top: 0px;
+  left: -10px;
+  transform-origin: right;
+  transform+_: rotate(calc(-0.85 * var(--rotate-deg)));
+  //   animation: shake-left 0.6s linear 0s infinite normal;
+}
+
+.runner-leg {
+  width: 12px;
+  height: 4px;
+  border-radius: 6px;
+}
+
+.runner-leg.right {
+  bottom: 0;
+  right: -8px;
+  transform-origin: left;
+  //   animation: shake-leg-right 0.4s linear 0s infinite normal;
+}
+
+.runner-leg.left {
+  height: 10px;
+  width: 4px;
+  bottom: -12px;
+  left: -0px;
+  transform-origin: top;
+  //   animation: shake-leg-left 0.4s linear 0s infinite normal;
+}
+
+.runner-leg.right::after {
+  .absolute;
+  content: '';
+  width: 4px;
+  height: 12px;
+  background-color: #fff;
+  border-radius: 3px;
+  top: 2px;
+  left: 8px;
+  transform-origin: top;
+  transform: rotate(calc(-1 * var(--rotate-deg)));
+}
+
+.runner-leg.left::after {
+  .absolute;
+  content: '';
+  width: 4px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 3px;
+  right: 0px;
+  bottom: -6px;
+  transform-origin: top;
+  transform: rotate(var(--rotate-deg));
+}
+
+@keyframes byte {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake-right {
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(calc(4 * var(--rotate-deg)));
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes shake-left {
+  0% {
+    transform: rotate(calc(0.85 * var(--rotate-deg)));
+  }
+
+  50% {
+    transform: rotate(calc(0.85 * -5 * var(--rotate-deg)));
+  }
+
+  100% {
+    transform: rotate(calc(0.85 * var(--rotate-deg)));
+  }
+}
+
+@keyframes shake-leg-right {
+  0% {
+    transform: rotate(0);
+  }
+
+  20% {
+    transform: rotate(var(--rotate-deg));
+  }
+
+  40% {
+    transform: rotate(calc(3 * var(--rotate-deg)));
+  }
+
+  60% {
+    transform: rotate(var(--rotate-deg));
+  }
+
+  80% {
+    transform: rotate(calc(-1 * var(--rotate-deg)));
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes shake-leg-left {
+  0% {
+    transform: rotate(0);
+  }
+
+  20% {
+    transform: rotate(calc(-1 * var(--rotate-deg)));
+  }
+
+  40% {
+    transform: rotate(calc(-3 * var(--rotate-deg)));
+  }
+
+  60% {
+    transform: rotate(calc(-1 * var(--rotate-deg)));
+  }
+
+  80% {
+    transform: rotate(var(--rotate-deg));
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes throw {
+  0% {
+    transform+_: translateX(-80px);
+  }
+
+  20% {
+    transform+_: translateX(0);
+  }
+  80% {
+    transform+_: translateX(0);
+  }
+
+  100% {
+    transform+_: translateX(80px);
+  }
+}

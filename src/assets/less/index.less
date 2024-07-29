@@ -1,0 +1,39 @@
+@import 'variables';
+
+html {
+  font-size: calc(100vw / 1920 * 16);
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto !important;
+  .flex-c-c;
+}
+
+#root {
+  .full-page;
+}
+
+
+
+h1,
+h2,
+h3,
+p,
+div {
+  box-sizing: border-box;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateY(0deg);
+  }
+  // 50% {
+  //   transform: rotateY(180deg);
+  // }
+  100% {
+    // transform: rotateY(360deg);
+    transform: rotateY(-180deg);
+  }
+}

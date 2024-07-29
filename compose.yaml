@@ -1,0 +1,15 @@
+version: '1'
+
+services: 
+  admin-frontend:
+    stdin_open: true
+    tty: true
+    image: node:18-alpine
+    ports:
+      - 127.0.0.1:3000:3000
+    working_dir: /app
+    volumes:
+      - ~/study/react-template:/app
+    environment:
+      ENV: dev
+      POST: 3000

@@ -1,0 +1,149 @@
+.loading-runner {
+  .relative;
+  .full-page;
+  .flex-c-c;
+  z-index: 1;
+}
+
+.loading-runner-container {
+  .relative;
+  height: 65px;
+  width: 65px;
+  background-color: #000;
+  //   transform: rotate(45deg);
+}
+
+.runner-entity {
+  .absolute;
+  background-color: #fff;
+}
+.runner-header {
+  height: 8px;
+  width: 8px;
+  border-radius: 100%;
+  left: calc(50% - 2.5px);
+  top: 10px;
+  transform-origin: center;
+
+  //   animation: byte 0.4s linear 0s infinite normal;
+}
+
+.runner-body {
+  height: 20px;
+  width: 8px;
+  border-radius: 8px;
+  top: 20px;
+  left: calc(50% - 2.5px);
+  //   animation: byte 0.4s linear 0s infinite normal;
+}
+.runner-hand {
+  width: 14px;
+  height: 4px;
+  border-radius: 6px;
+}
+
+.runner-hand::before {
+  .absolute;
+  content: '';
+  width: 4px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.runner-hand.right::before {
+  right: 0px;
+  top: -6px;
+}
+
+.runner-hand.left::before {
+  left: 0px;
+  bottom: -5px;
+  transform-origin: top;
+  transform: rotate(40deg);
+}
+
+.runner-hand.right {
+  top: 0px;
+  right: -10px;
+  animation: shake 0.4s linear 0s infinite normal;
+}
+
+.runner-hand.left {
+  width: 14px;
+  top: 0px;
+  left: -12px;
+  transform-origin: right;
+  transform+_: rotate(-40deg);
+}
+
+.runner-leg {
+  width: 12px;
+  height: 4px;
+  border-radius: 6px;
+}
+
+.runner-leg.right {
+  bottom: 0;
+  right: -8px;
+}
+
+.runner-leg.left {
+  height: 8px;
+  width: 4px;
+  bottom: -10px;
+  left: 0px;
+}
+
+.runner-leg.right::after {
+  .absolute;
+  content: '';
+  width: 4px;
+  height: 14px;
+  background-color: #fff;
+  border-radius: 3px;
+  left: 7px;
+  transform-origin: top;
+  transform: rotate(-45deg);
+}
+
+.runner-leg.left::after {
+  .absolute;
+  content: '';
+  width: 4px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 3px;
+  right: 0px;
+  bottom: -8px;
+  transform-origin: top;
+  transform: rotate(45deg);
+}
+
+@keyframes byte {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform-origin: left;
+    transform: rotate(0);
+  }
+  50% {
+    transform-origin: left;
+    transform: rotate(180deg);
+  }
+  100% {
+    transform-origin: left;
+    transform: rotate(0);
+  }
+}

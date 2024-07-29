@@ -1,14 +1,9 @@
 {
   "compilerOptions": {
-     // 模块基本目录路径为当前文件根路径下
-     "baseUrl": ".",
-     // 路径映射到基于baseUrl路径下的别名
-    "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./src/*"]
-    },
-    "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["node"],
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
 
@@ -24,15 +19,13 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+    }
   },
-  "include": [
-    "vite.config.ts",
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/*.ts"
-  ],
-  "exclude": ["dist", "node_modules", "**/node_modules/*", "**/*.js"],
+  "include": ["src"],
+  "exclude": ["node_modules","dist"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
