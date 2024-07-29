@@ -1,4 +1,3 @@
-import Layout from '@/components/layout'
 import './index.less'
 
 const Home = () => {
