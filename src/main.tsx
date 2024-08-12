@@ -2,10 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import '@/assets/less/index.less'
 import 'normalize.css'
-import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from '@/App.tsx'
 import Home from '@/pages/home/index.tsx'
-// import { checkLogin } from '@/utils/hooks/assign'
 
 const router = createBrowserRouter([
   {
