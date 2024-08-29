@@ -1,9 +1,9 @@
 import React, { lazy, useCallback, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 import './App.less'
-import debounce from '@/utils/decorator/debounce'
-
-import VConsole from 'vconsole'
-import Eaxmple from './components/test'
+// import debounce from '@/utils/decorator/debounce'
+// import VConsole from 'vconsole'
+// import Eaxmple from './components/test'
 // new VConsole
 // 不实例化vconsole的时候包是195kb
 // 实例化后是 504.56
@@ -23,6 +23,7 @@ const ComponentsLazy = lazy(() => import('./components/test'))
 const App: React.FC<{ children: JSX.Element }> = ({ children }) => {
   const [Component, setComponent] = useState(undefined)
 
+  const countState = useSelector(state => state.index.count)
   // const asyncImportComponent = () => {
   //   // import('./components/test').then(e => {
   //   //   console.log('default前')
@@ -44,7 +45,7 @@ const App: React.FC<{ children: JSX.Element }> = ({ children }) => {
       {/* {Component ? excuel() : ''} */}
       
       {/* <button onClick={asyncImportComponent}>Btn</button> */}
-      <button onClick={asyncImport}>BtnConsole</button>
+      <button onClick={asyncImport}>{countState}</button>
       {children}
     </div>
   )
