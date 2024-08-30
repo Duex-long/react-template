@@ -10,19 +10,6 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />,
-    // loader: () =>
-    //   new Promise((resolve) => {
-    //     checkLogin().then(
-    //       (res) => {
-    //         if (!res) redirect('/login')
-    //         resolve(res)
-    //       },
-    //       () => {
-    //         redirect('login')
-    //         resolve(false)
-    //       }
-    //     )
-    //   }),
   },
 ])
 
