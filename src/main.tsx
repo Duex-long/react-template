@@ -5,11 +5,16 @@ import 'normalize.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from '@/App.tsx'
 import Home from '@/pages/home/index.tsx'
+import Platform from './pages/platform'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />,
+  },
+  {
+    path: '/platform',
+    element: <Platform />,
   },
 ])
 
