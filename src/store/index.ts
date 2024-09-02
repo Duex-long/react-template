@@ -1,4 +1,4 @@
-import { createSlice, combineReducers } from '@reduxjs/toolkit'
+import { createSlice, combineReducers, configureStore } from '@reduxjs/toolkit'
 
 const indexSlice = createSlice({
   name: 'index',
@@ -12,6 +12,8 @@ const indexSlice = createSlice({
   },
 })
 
-export default combineReducers({
-  index: indexSlice,
+export default configureStore({
+  reducer: combineReducers({
+    index: indexSlice.reducer,
+  }),
 })
