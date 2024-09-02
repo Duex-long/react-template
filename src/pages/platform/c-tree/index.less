@@ -1,0 +1,45 @@
+@node-height: 3rem;
+.c-tree {
+  .full-page;
+  background-color: aliceblue;
+  color: #000;
+}
+.c-tree-node {
+  width: 100%;
+  height: @node-height;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 2rem;
+
+  .c-tree-node-icon {
+    font-size: 2rem;
+    line-height: 2rem;
+  }
+  .c-tree-node-label {
+    text-indent: 0.5rem;
+    font-size: 1.75rem;
+  }
+}
+
+.c-tree-collspan {
+  position: relative;
+  width: 100%;
+  height: @node-height;
+  overflow: hidden;
+  &.expand {
+    height: auto;
+  }
+
+  .c-tree-collspan-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: @node-height;
+    font-size: 1.5rem;
+    .flex-c-c;
+  }
+  .c-tree-collspan-children {
+    padding-left: 2rem;
+  }
+}

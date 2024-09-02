@@ -14,4 +14,7 @@ interface ComponentsInterface {
   attribute: AttributeInterface
   /** 子节点 */
   children?: Array<ComponentsInterface>
+  /** 名称 */
+  name: string
+  /** icon */
 }
