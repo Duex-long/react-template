@@ -1,20 +1,20 @@
 import { FC, useState } from 'react'
 import './index.less'
-import { BorderOutlined, RightOutlined } from '@ant-design/icons'
+import { GatewayOutlined, RightOutlined } from '@ant-design/icons'
 import { joinCssList } from '@/utils/style'
 
-const CTreeNode = () => {
+const CTreeNode: FC = () => {
   return (
     <div className="c-tree-node">
       <div className="c-tree-node-icon">
-        <BorderOutlined />
+        <GatewayOutlined />
       </div>
       <div className="c-tree-node-label">Label</div>
     </div>
   )
 }
 
-const CTCollspan: FC<{ children: JSX.Element }> = ({ children }) => {
+const CTCollspanNode: FC<{ children: JSX.Element }> = ({ children }) => {
   const [collspanState, setCollspanState] = useState(false)
   return (
     <div
@@ -38,15 +38,15 @@ const CTCollspan: FC<{ children: JSX.Element }> = ({ children }) => {
 const CTree = () => {
   return (
     <div className="c-tree">
-      <CTCollspan>
+      <CTCollspanNode>
         <CTreeNode />
         <CTreeNode />
 
-        <CTCollspan>
+        <CTCollspanNode>
           <CTreeNode />
           <CTreeNode />
-        </CTCollspan>
-      </CTCollspan>
+        </CTCollspanNode>
+      </CTCollspanNode>
       <CTreeNode />
     </div>
   )
