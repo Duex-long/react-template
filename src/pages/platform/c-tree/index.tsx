@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, ReactNode, useState } from 'react'
 import './index.less'
 import { GatewayOutlined, RightOutlined } from '@ant-design/icons'
 import { joinCssList } from '@/utils/style'
@@ -14,7 +14,7 @@ const CTreeNode: FC = () => {
   )
 }
 
-const CTCollspanNode: FC<{ children: JSX.Element }> = ({ children }) => {
+const CTCollspanNode: FC<{ children: ReactNode }> = ({ children }) => {
   const [collspanState, setCollspanState] = useState(false)
   return (
     <div
@@ -35,10 +35,67 @@ const CTCollspanNode: FC<{ children: JSX.Element }> = ({ children }) => {
   )
 }
 
+// render嵌套列表
+const CtTreeRenderMap = (item: { children: any[] }) => {
+  const hasChildren = item.children && item.children.length > 1
+  if (hasChildren) {
+    return <CTCollspanNode>{item.children.map(CtTreeRenderMap)}</CTCollspanNode>
+  } else {
+    return <CTreeNode />
+  }
+}
+
+const MockComponent = [
+  {
+    name: 'component-1',
+    children: [
+      {
+        name: 'component-1-1',
+        children: [],
+      },
+      {
+        name: 'component-1-2',
+        children: [
+          {
+            name: 'component-1-2-1',
+            children: [],
+          },
+          {
+            name: 'component-1-2-2',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'component-2',
+    children: [
+      {
+        name: 'component-2-1',
+        children: [
+          {
+            name: 'component-2-1-1',
+            children: [],
+          },
+          {
+            name: 'component-2-1-2',
+            children: [],
+          },
+        ],
+      },
+      {
+        name: 'component-2-2',
+        children: [],
+      },
+    ],
+  },
+]
+
 const CTree = () => {
   return (
     <div className="c-tree">
-      <CTCollspanNode>
+      {/* <CTCollspanNode>
         <CTreeNode />
         <CTreeNode />
 
@@ -47,7 +104,10 @@ const CTree = () => {
           <CTreeNode />
         </CTCollspanNode>
       </CTCollspanNode>
-      <CTreeNode />
+      <CTreeNode /> */}
+          {
+              MockComponent.map(CtTreeRenderMap)
+      }
     </div>
   )
 }
