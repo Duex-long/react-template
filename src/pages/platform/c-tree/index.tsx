@@ -1,11 +1,19 @@
-import { FC, ReactNode, useState } from 'react'
+import { CSSProperties, FC, ReactNode, useMemo, useState } from 'react'
 import './index.less'
 import { GatewayOutlined, RightOutlined } from '@ant-design/icons'
 import { joinCssList } from '@/utils/style'
 
-const CTreeNode: FC = () => {
+const CTreeNode: FC<{ level: number }> = ({ level }) => {
+  const memoryStyle = useMemo<CSSProperties>(
+    () => ({
+      marginLeft: `-${level * 2}rem`,
+      paddingLeft: `${level *2}rem`,
+    }),
+    [level]
+  )
+
   return (
-    <div className="c-tree-node">
+    <div className="c-tree-node" style={memoryStyle}>
       <div className="c-tree-node-icon">
         <GatewayOutlined />
       </div>
@@ -14,7 +22,12 @@ const CTreeNode: FC = () => {
   )
 }
 
-const CTCollspanNode: FC<{ children: ReactNode }> = ({ children }) => {
+const CTCollspanNode: FC<{ level: number; children: ReactNode }> = ({
+  children,
+  level,
+}) => {
+
+
   const [collspanState, setCollspanState] = useState(false)
   return (
     <div
@@ -29,19 +42,24 @@ const CTCollspanNode: FC<{ children: ReactNode }> = ({ children }) => {
       >
         <RightOutlined rotate={collspanState ? 90 : 0} />
       </div>
-      <CTreeNode />
+      <CTreeNode level={level} />
       <div className="c-tree-collspan-children"> {children}</div>
     </div>
   )
 }
 
 // render嵌套列表
-const CtTreeRenderMap = (item: { children: any[] }) => {
+const CtTreeRenderMap = (item: { children: any[] }, level = 0) => {
+  level = level + 1
   const hasChildren = item.children && item.children.length > 1
   if (hasChildren) {
-    return <CTCollspanNode>{item.children.map(CtTreeRenderMap)}</CTCollspanNode>
+    return (
+      <CTCollspanNode level={level}>
+        {item.children.map((item) => CtTreeRenderMap(item, level))}
+      </CTCollspanNode>
+    )
   } else {
-    return <CTreeNode />
+    return <CTreeNode level={level} />
   }
 }
 
@@ -93,23 +111,7 @@ const MockComponent = [
 ]
 
 const CTree = () => {
-  return (
-    <div className="c-tree">
-      {/* <CTCollspanNode>
-        <CTreeNode />
-        <CTreeNode />
-
-        <CTCollspanNode>
-          <CTreeNode />
-          <CTreeNode />
-        </CTCollspanNode>
-      </CTCollspanNode>
-      <CTreeNode /> */}
-          {
-              MockComponent.map(CtTreeRenderMap)
-      }
-    </div>
-  )
+  return <div className="c-tree">{MockComponent.map(CtTreeRenderMap)}</div>
 }
 
 export default CTree
