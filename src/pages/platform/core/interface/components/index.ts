@@ -5,7 +5,7 @@ interface StyleInterface {
 /** 属性 */
 interface AttributeInterface {
   /** 目前仅支持css */
-  css: Array<StyleInterface>
+  css?: Array<StyleInterface>
 }
 
 /** 容器 */
@@ -18,3 +18,11 @@ interface ComponentsInterface {
   name: string
   /** icon */
 }
+
+/** 实例化组建类型参数 */
+interface ComponentConstructorParamsInterface {
+  /** 名称 */
+  name:string
+}
+
+export type { ComponentsInterface, AttributeInterface, StyleInterface,ComponentConstructorParamsInterface }

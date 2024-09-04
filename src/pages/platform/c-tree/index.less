@@ -2,25 +2,25 @@
 
 .c-tree {
   .full-page;
-  background-color: aliceblue;
   color: #000;
 }
 .c-tree-node {
-  width: 100%;
   height: @node-height;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  // padding-left: 2rem;
   cursor: pointer;
   text-indent: 2rem;
+  &:active {
+    background-color: rgb(160, 198, 238);
+  }
   .c-tree-node-icon {
     font-size: 2rem;
     line-height: 2rem;
   }
   .c-tree-node-label {
     text-indent: .5rem;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -28,7 +28,6 @@
   position: relative;
   width: 100%;
   height: @node-height;
-  overflow: hidden;
   &.expand {
     height: auto;
   }
@@ -39,7 +38,7 @@
     top: 0;
     height: @node-height;
     font-size: 1.25rem;
-    color: #c0c0c0;
+    color: #616161;
     .flex-c-c;
   }
   .c-tree-collspan-children {

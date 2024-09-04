@@ -1,4 +1,11 @@
-import { CSSProperties, FC, ReactNode, useMemo, useState } from 'react'
+import {
+  CSSProperties,
+  FC,
+  ReactNode,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react'
 import './index.less'
 import { GatewayOutlined, RightOutlined } from '@ant-design/icons'
 import { joinCssList } from '@/utils/style'
@@ -7,7 +14,7 @@ const CTreeNode: FC<{ level: number }> = ({ level }) => {
   const memoryStyle = useMemo<CSSProperties>(
     () => ({
       marginLeft: `-${level * 2}rem`,
-      paddingLeft: `${level *2}rem`,
+      paddingLeft: `${level * 2}rem`,
     }),
     [level]
   )
@@ -26,9 +33,11 @@ const CTCollspanNode: FC<{ level: number; children: ReactNode }> = ({
   children,
   level,
 }) => {
-
-
   const [collspanState, setCollspanState] = useState(false)
+  const childRender = useCallback(
+    () => <div className="c-tree-collspan-children"> {children}</div>,
+    [children, collspanState]
+  )
   return (
     <div
       className={joinCssList([
@@ -43,7 +52,7 @@ const CTCollspanNode: FC<{ level: number; children: ReactNode }> = ({
         <RightOutlined rotate={collspanState ? 90 : 0} />
       </div>
       <CTreeNode level={level} />
-      <div className="c-tree-collspan-children"> {children}</div>
+      {collspanState ? childRender() : undefined}
     </div>
   )
 }
