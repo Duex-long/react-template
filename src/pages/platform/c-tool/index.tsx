@@ -1,8 +1,9 @@
 import './index.less'
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Tool } from './type'
 import CTree from '../c-tree'
 import { ApartmentOutlined, FormatPainterOutlined } from '@ant-design/icons'
+import { joinCssList } from '@/utils/style'
 const componentToolConfig = [
   {
     name: 'Tree',
@@ -31,13 +32,16 @@ const CTool = () => {
   const [contentTarget, setContentTarget] = useState(
     componentToolConfig[0].target
   )
-
+   
   return (
     <div className="c-tool">
       <div className="c-tool-list">
         {toolsList.map((item) => (
           <div
-            className="c-tool-list-item"
+            className={joinCssList([
+              'c-tool-list-item',
+              `${item.target == contentTarget ? 'active' : ''}`,
+            ])}
             onClick={() => setContentTarget(item.target)}
           >
             <item.icon />
