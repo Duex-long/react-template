@@ -24,7 +24,7 @@ const CTreeNode: FC<{ level: number }> = ({ level }) => {
       <div className="c-tree-node-icon">
         <GatewayOutlined />
       </div>
-      <div className="c-tree-node-label">Label</div>
+      <div className="c-tree-node-label">{name}</div>
     </div>
   )
 }
@@ -44,11 +44,9 @@ const CTCollspanNode: FC<{ level: number; children: ReactNode }> = ({
         'c-tree-collspan',
         `${collspanState ? 'expand' : ''}`,
       ])}
+      onClick={() => setCollspanState(!collspanState)}
     >
-      <div
-        className="c-tree-collspan-icon"
-        onClick={() => setCollspanState(!collspanState)}
-      >
+      <div className="c-tree-collspan-icon">
         <RightOutlined rotate={collspanState ? 90 : 0} />
       </div>
       <CTreeNode level={level} />
