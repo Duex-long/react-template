@@ -25,15 +25,28 @@ const componentToolConfig = [
 
 const componentMap: { [x: string]: () => JSX.Element } = {
   ['tree']: CTree,
-  ['create']:CCreate
+  ['create']: CCreate,
 }
 
 const toolsList = componentToolConfig.map((item) => new Tool(item))
 
 /** 选项工具内容 */
 const ToolsMapRender: FC<ToolItemInject> = ({ toolItem }) => {
-  const ToolComponent = componentMap[toolItem.target.toLocaleLowerCase()]
-  return <>{ToolComponent && ToolComponent()}</>
+  const targetActive = toolItem.target.toLocaleLowerCase()
+
+  return Object.keys(componentMap).map((toolElementKey) => {
+    const _ToolElement = componentMap[toolElementKey]
+    return (
+      <div
+        className={joinCssList([
+          'tools-map-render',
+          targetActive != toolElementKey ? 'hidden' : '',
+        ])}
+      >
+        <_ToolElement />
+      </div>
+    )
+  })
 }
 /** 选项工具信息 */
 
