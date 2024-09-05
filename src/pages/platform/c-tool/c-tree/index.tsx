@@ -66,7 +66,7 @@ const CTCollspanNode: FC<{
 // render嵌套列表
 const CtTreeRenderMap = (item: ComponentsInterface, level = 0) => {
   level = level + 1
-  const hasChildren = item.children && item.children.length > 1
+  const hasChildren = item.children && item.children.length >= 1
   if (hasChildren) {
     return (
       <CTCollspanNode node={item} level={level} key={item.name}>

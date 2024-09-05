@@ -1,7 +1,10 @@
 import SignleRecordCreater, {
   SignleRecordInstance,
 } from '@/pages/platform/core'
-import { ComponentFactoryInterface } from '@/pages/platform/core/interface/components'
+import {
+  ComponentFactoryInterface,
+  ComponentsInterface,
+} from '@/pages/platform/core/interface/components'
 import { createSlice, combineReducers, configureStore } from '@reduxjs/toolkit'
 
 const indexSlice = createSlice({
@@ -24,8 +27,18 @@ const platformSlice = createSlice({
   name: 'platform',
   initialState: platformState,
   reducers: {
-    createFactory(state, { payload }:{payload:ComponentFactoryInterface}) {
+    createFactory(state, { payload }: { payload: ComponentFactoryInterface }) {
       state.record.componentFactoryCollection.push(payload)
+      state.record = {
+        ...state.record,
+      }
+    },
+    appendContainer(state, { payload }: { payload: ComponentsInterface }) {
+      console.log('???')
+      state.record.componentTree.children.push(payload)
+      state.record = {
+        ...state.record
+      }
     },
   },
 })
@@ -33,6 +46,10 @@ const platformSlice = createSlice({
 export default configureStore({
   reducer: combineReducers({
     index: indexSlice.reducer,
-    platform:platformSlice.reducer
+    platform: platformSlice.reducer,
   }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })

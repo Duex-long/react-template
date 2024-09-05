@@ -1,21 +1,24 @@
 import './index.less'
-import { FC, useMemo } from 'react'
+import { FC } from 'react'
 import { BorderOutlined } from '@ant-design/icons'
 import ScaleTextRender from '@/components/common/scaleText/scaleText'
 import { useRecordTarget } from '../../core'
 import { ComponentFactoryInterface } from '../../core/interface/components'
 import { BaseContainerFactory } from '../../core/component'
+import { useDispatch } from 'react-redux'
 
 /** 创建组件项 */
 const CCreateItem: FC<{ factory: ComponentFactoryInterface }> = ({
   factory,
 }) => {
+  const dispach = useDispatch()
   const record = useRecordTarget()
 
   const createContainer = () => {
-    // const component = factory.create({name:'容器'})
-    record.componentFactoryCollection.push(new BaseContainerFactory())
-
+    dispach({
+      type: 'platform/appendContainer',
+      payload: factory.create({ name: '容器' }),
+    })
   }
   return (
     <div className="c-create-container-item" onClick={createContainer}>

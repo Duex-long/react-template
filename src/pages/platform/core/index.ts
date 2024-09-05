@@ -1,7 +1,6 @@
 // platform创作的对象以单例模式保存，只需要在页面初始化后访问都是该对象
 // 使用builder去完善内容
 
-import { createContext, useContext, useState } from 'react'
 import { BaseComponent, BaseContainerFactory } from './component'
 import {
   ComponentFactoryInterface,
@@ -22,7 +21,6 @@ class SignleRecordCreater {
 
   constructor(options: { component: ComponentsInterface }) {
     this.componentTree = options.component
-    // 多个工厂是否需要整合
     /** 实例化工厂 */
     this.componentFactoryCollection.push(new BaseContainerFactory())
   }
@@ -55,8 +53,4 @@ const useRecordTarget = (): SignleRecordCreater => {
 /** 暴露声明类 由上下文选择性创建*/
 export default SignleRecordCreater
 
-export {
-  CreateSignleRecord,
-  useRecordTarget,
-  SignleRecordInstance,
-}
+export { CreateSignleRecord, useRecordTarget, SignleRecordInstance }
