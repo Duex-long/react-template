@@ -10,8 +10,12 @@ import './index.less'
 import { GatewayOutlined, RightOutlined } from '@ant-design/icons'
 import { joinCssList } from '@/utils/style'
 import { ComponentsInterface } from '../../core/interface/components'
+import { useRecordTarget } from '../../core'
 
-const CTreeNode: FC<{ level: number }> = ({ level }) => {
+const CTreeNode: FC<{ level: number; node: ComponentsInterface }> = ({
+  level,
+  node,
+}) => {
   const memoryStyle = useMemo<CSSProperties>(
     () => ({
       marginLeft: `-${level * 2}rem`,
@@ -25,15 +29,16 @@ const CTreeNode: FC<{ level: number }> = ({ level }) => {
       <div className="c-tree-node-icon">
         <GatewayOutlined />
       </div>
-      <div className="c-tree-node-label">Label</div>
+      <div className="c-tree-node-label">{node.name}</div>
     </div>
   )
 }
 
-const CTCollspanNode: FC<{ level: number; children: ReactNode }> = ({
-  children,
-  level,
-}) => {
+const CTCollspanNode: FC<{
+  level: number
+  children: ReactNode
+  node: ComponentsInterface
+}> = ({ children, level, node }) => {
   const [collspanState, setCollspanState] = useState(false)
   const childRender = useCallback(
     () => <div className="c-tree-collspan-children"> {children}</div>,
@@ -52,7 +57,7 @@ const CTCollspanNode: FC<{ level: number; children: ReactNode }> = ({
       >
         <RightOutlined rotate={collspanState ? 90 : 0} />
       </div>
-      <CTreeNode level={level} />
+      <CTreeNode node={node} level={level} />
       {collspanState ? childRender() : undefined}
     </div>
   )
@@ -64,64 +69,69 @@ const CtTreeRenderMap = (item: ComponentsInterface, level = 0) => {
   const hasChildren = item.children && item.children.length > 1
   if (hasChildren) {
     return (
-      <CTCollspanNode level={level} key={item.name}>
+      <CTCollspanNode node={item} level={level} key={item.name}>
         {item.children.map((item) => CtTreeRenderMap(item, level))}
       </CTCollspanNode>
     )
   } else {
-    return <CTreeNode level={level} key={item.name} />
+    return <CTreeNode level={level} node={item} key={item.name} />
   }
 }
 
-const MockComponent  = [
-  {
-    name: 'component-1',
-    children: [
-      {
-        name: 'component-1-1',
-        children: [],
-      },
-      {
-        name: 'component-1-2',
-        children: [
-          {
-            name: 'component-1-2-1',
-            children: [],
-          },
-          {
-            name: 'component-1-2-2',
-            children: [],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: 'component-2',
-    children: [
-      {
-        name: 'component-2-1',
-        children: [
-          {
-            name: 'component-2-1-1',
-            children: [],
-          },
-          {
-            name: 'component-2-1-2',
-            children: [],
-          },
-        ],
-      },
-      {
-        name: 'component-2-2',
-        children: [],
-      },
-    ],
-  },
-]
+// const MockComponent  = [
+//   {
+//     name: 'component-1',
+//     children: [
+//       {
+//         name: 'component-1-1',
+//         children: [],
+//       },
+//       {
+//         name: 'component-1-2',
+//         children: [
+//           {
+//             name: 'component-1-2-1',
+//             children: [],
+//           },
+//           {
+//             name: 'component-1-2-2',
+//             children: [],
+//           },
+//         ],
+//       },
+//     ],
+//   },
+//   {
+//     name: 'component-2',
+//     children: [
+//       {
+//         name: 'component-2-1',
+//         children: [
+//           {
+//             name: 'component-2-1-1',
+//             children: [],
+//           },
+//           {
+//             name: 'component-2-1-2',
+//             children: [],
+//           },
+//         ],
+//       },
+//       {
+//         name: 'component-2-2',
+//         children: [],
+//       },
+//     ],
+//   },
+// ]
 
 const CTree = () => {
-  return <div className="c-tree c-tool-content-item">{(MockComponent as unknown as ComponentsInterface[]).map(CtTreeRenderMap)}</div>
+  const  record = useRecordTarget()
+  return (
+    <div className="c-tree c-tool-content-item">
+      {CtTreeRenderMap(record.componentTree)}
+    </div>
+  )
 }
 
 export default CTree

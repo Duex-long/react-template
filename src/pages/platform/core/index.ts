@@ -1,12 +1,13 @@
 // platform创作的对象以单例模式保存，只需要在页面初始化后访问都是该对象
 // 使用builder去完善内容
 
-import { useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { BaseComponent, BaseContainerFactory } from './component'
 import {
   ComponentFactoryInterface,
   ComponentsInterface,
 } from './interface/components'
+import { useSelector } from 'react-redux'
 
 /**  单例类 */
 class SignleRecordCreater {
@@ -33,14 +34,29 @@ const CreateSignleRecord = (() => {
   return () => component
 })()
 
+/** 初始化 */
+const init = () => {
+  const SignleRecordInstance = new SignleRecordCreater({
+    component: CreateSignleRecord(),
+  })
+  return SignleRecordInstance
+}
+
+const SignleRecordInstance = init()
+
 /** record实例 */
-const useRecordTarget = () => {
-  const component = CreateSignleRecord()
-  const [signalInstance] = useState(new SignleRecordCreater({ component }))
-  return signalInstance
+const useRecordTarget = (): SignleRecordCreater => {
+  const recordService = useSelector<{
+    platform: { record: SignleRecordCreater }
+  }>((state) => state.platform.record) as SignleRecordCreater
+  return recordService
 }
 
 /** 暴露声明类 由上下文选择性创建*/
 export default SignleRecordCreater
 
-export { CreateSignleRecord, useRecordTarget }
+export {
+  CreateSignleRecord,
+  useRecordTarget,
+  SignleRecordInstance,
+}
