@@ -1,0 +1,33 @@
+.c-create {
+}
+.c-create-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid #eaeaea;
+  border-left: 1px solid #eaeaea;
+
+  .c-create-container-item {
+    width: 33.33333333%;
+    padding: 1.5rem;
+    .flex-c-c;
+    .flex-column;
+    border-bottom: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea;
+    box-shadow: 0 0 0 0 rgba(0,0,0,.1);
+    transition: all .4s linear;
+    &:hover {
+      box-shadow: 0 6px 16px 0 rgba(0,0,0,.1);
+    }
+
+    .c-create-container-item-icon {
+      font-size: 3rem;
+    }
+    .c-create-container-item-name {
+      width: 100%;
+      font-size: 1.5rem;
+      text-align: center;
+      padding-top: 0.5rem;
+    }
+  }
+}

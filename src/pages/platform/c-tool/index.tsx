@@ -1,9 +1,10 @@
 import './index.less'
 import { FC, useState } from 'react'
 import { Tool } from './type'
-import CTree from '../c-tree'
+import CTree from './c-tree'
 import { ApartmentOutlined, FormatPainterOutlined } from '@ant-design/icons'
 import { joinCssList } from '@/utils/style'
+import CCreate from './c-create'
 
 type ToolItemInject = {
   toolItem: Tool
@@ -24,6 +25,7 @@ const componentToolConfig = [
 
 const componentMap: { [x: string]: () => JSX.Element } = {
   ['tree']: CTree,
+  ['component']:CCreate
 }
 
 const toolsList = componentToolConfig.map((item) => new Tool(item))

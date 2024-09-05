@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import CTree from './c-tree'
+import CTree from './c-tool/c-tree'
 import CTool from './c-tool'
 import SignleRecordCreater, { useRecordTarget } from './core'
 import './platform.less'

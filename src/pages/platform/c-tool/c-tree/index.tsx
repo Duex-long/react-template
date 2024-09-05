@@ -120,7 +120,7 @@ const MockComponent = [
 ]
 
 const CTree = () => {
-  return <div className="c-tree">{MockComponent.map(CtTreeRenderMap)}</div>
+  return <div className="c-tree c-tool-content-item">{MockComponent.map(CtTreeRenderMap)}</div>
 }
 
 export default CTree
