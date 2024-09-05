@@ -17,23 +17,23 @@ const componentToolConfig = [
     icon: ApartmentOutlined,
   },
   {
-    name: 'Component',
-    target: 'Component',
+    name: 'Create',
+    target: 'Create',
     icon: FormatPainterOutlined,
   },
 ]
 
 const componentMap: { [x: string]: () => JSX.Element } = {
   ['tree']: CTree,
-  ['component']:CCreate
+  ['create']:CCreate
 }
 
 const toolsList = componentToolConfig.map((item) => new Tool(item))
 
 /** 选项工具内容 */
-const ComponentMapRender: FC<ToolItemInject> = ({ toolItem }) => {
-  const Component = componentMap[toolItem.target.toLocaleLowerCase()]
-  return <>{Component && Component()}</>
+const ToolsMapRender: FC<ToolItemInject> = ({ toolItem }) => {
+  const ToolComponent = componentMap[toolItem.target.toLocaleLowerCase()]
+  return <>{ToolComponent && ToolComponent()}</>
 }
 /** 选项工具信息 */
 
@@ -56,6 +56,7 @@ const CTool = () => {
       <div className="c-tool-list">
         {toolsList.map((item) => (
           <div
+            key={item.name}
             className={joinCssList([
               'c-tool-list-item',
               `${item.target == contentTarget.target ? 'active' : ''}`,
@@ -68,7 +69,7 @@ const CTool = () => {
       </div>
       <div className="c-tool-content">
         <ComponentInfoRender toolItem={contentTarget} />
-        <ComponentMapRender toolItem={contentTarget} />
+        <ToolsMapRender toolItem={contentTarget} />
       </div>
     </div>
   )

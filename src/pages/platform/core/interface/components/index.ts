@@ -1,3 +1,5 @@
+import { IconType } from "../../type"
+
 /** 样式*/
 interface StyleInterface {
   [key: string]: string
@@ -13,7 +15,7 @@ interface ComponentsInterface {
   /** 属性 */
   attribute: AttributeInterface
   /** 子节点 */
-  children?: Array<ComponentsInterface>
+  children: Array<ComponentsInterface>
   /** 名称 */
   name: string
   /** icon */
@@ -25,4 +27,16 @@ interface ComponentConstructorParamsInterface {
   name:string
 }
 
-export type { ComponentsInterface, AttributeInterface, StyleInterface,ComponentConstructorParamsInterface }
+/** Component工厂 */
+
+interface ComponentFactoryInterface {
+  /** 构造器*/
+  create: (config: ComponentConstructorParamsInterface) => ComponentsInterface
+  /** 名称*/
+  name: string
+  /** icon */
+  icon:IconType
+}
+
+
+export type { ComponentFactoryInterface,ComponentsInterface, AttributeInterface, StyleInterface,ComponentConstructorParamsInterface }

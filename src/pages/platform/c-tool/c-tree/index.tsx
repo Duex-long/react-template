@@ -9,6 +9,7 @@ import {
 import './index.less'
 import { GatewayOutlined, RightOutlined } from '@ant-design/icons'
 import { joinCssList } from '@/utils/style'
+import { ComponentsInterface } from '../../core/interface/components'
 
 const CTreeNode: FC<{ level: number }> = ({ level }) => {
   const memoryStyle = useMemo<CSSProperties>(
@@ -58,21 +59,21 @@ const CTCollspanNode: FC<{ level: number; children: ReactNode }> = ({
 }
 
 // render嵌套列表
-const CtTreeRenderMap = (item: { children: any[] }, level = 0) => {
+const CtTreeRenderMap = (item: ComponentsInterface, level = 0) => {
   level = level + 1
   const hasChildren = item.children && item.children.length > 1
   if (hasChildren) {
     return (
-      <CTCollspanNode level={level}>
+      <CTCollspanNode level={level} key={item.name}>
         {item.children.map((item) => CtTreeRenderMap(item, level))}
       </CTCollspanNode>
     )
   } else {
-    return <CTreeNode level={level} />
+    return <CTreeNode level={level} key={item.name} />
   }
 }
 
-const MockComponent = [
+const MockComponent  = [
   {
     name: 'component-1',
     children: [
@@ -120,7 +121,7 @@ const MockComponent = [
 ]
 
 const CTree = () => {
-  return <div className="c-tree c-tool-content-item">{MockComponent.map(CtTreeRenderMap)}</div>
+  return <div className="c-tree c-tool-content-item">{(MockComponent as unknown as ComponentsInterface[]).map(CtTreeRenderMap)}</div>
 }
 
 export default CTree
