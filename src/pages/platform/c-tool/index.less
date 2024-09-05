@@ -1,6 +1,7 @@
 .c-tool {
   .full-page;
   display: flex;
+  background-color: rgba(122, 116, 116, 0.2);
 }
 
 .c-tool-list {
@@ -9,18 +10,30 @@
 }
 .c-tool-content {
   flex: 1;
+  display: flex;
   overflow: hidden;
   padding: @base-padding;
-  background-color: rgba(122, 116, 116, 0.2);
+  flex-direction: column;
+  background-color: #fff;
+}
+// 工具信息
+.c-tool-content-info {
+  width: 100%;
+  background-color: #fff;
+}
+.c-tool-content-info-title {
+  margin: 0;
+  height: 5rem;
+  line-height: 5rem;
 }
 .c-tool-list-item {
+  border-top: 1px solid rgba(204, 204, 204,.2);
   width: 5rem;
   height: 5rem;
   font-size: 2rem;
   .flex-c-c;
-
   &:hover,
   &.active {
-    background-color: rgba(122, 116, 116, 0.2);
+    background-color: #fff;
   }
 }
