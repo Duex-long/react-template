@@ -1,25 +1,26 @@
 .c-tool {
-    .full-page;
-    display: flex;
+  .full-page;
+  display: flex;
 }
 
 .c-tool-list {
-    width: 5rem;
-    height: 100%;
-  
+  width: 5rem;
+  height: 100%;
 }
 .c-tool-content {
-    flex: 1;
-    overflow: hidden;
-    background-color: rgba(122, 116, 116,.2);
+  flex: 1;
+  overflow: hidden;
+  padding: @base-padding;
+  background-color: rgba(122, 116, 116, 0.2);
 }
 .c-tool-list-item {
-    width: 5rem;
-    height: 5rem;
-    font-size: 2rem;
-    .flex-c-c;
+  width: 5rem;
+  height: 5rem;
+  font-size: 2rem;
+  .flex-c-c;
 
-    &:hover,&.active {
-        background-color: rgba(122, 116, 116,.2);
-    }
+  &:hover,
+  &.active {
+    background-color: rgba(122, 116, 116, 0.2);
+  }
 }

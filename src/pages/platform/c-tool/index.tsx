@@ -1,5 +1,5 @@
 import './index.less'
-import { useCallback, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Tool } from './type'
 import CTree from '../c-tree'
 import { ApartmentOutlined, FormatPainterOutlined } from '@ant-design/icons'
@@ -32,7 +32,7 @@ const CTool = () => {
   const [contentTarget, setContentTarget] = useState(
     componentToolConfig[0].target
   )
-   
+
   return (
     <div className="c-tool">
       <div className="c-tool-list">
