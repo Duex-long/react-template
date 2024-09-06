@@ -56,7 +56,7 @@ const CTCollspanNode: FC<{
   children: ReactNode
   node: ComponentsInterface
 }> = ({ children, level, node }) => {
-  const [collspanState, setCollspanState] = useState(false)
+  const [collspanState, setCollspanState] = useState(true)
   const childRender = useCallback(
     () => <div className="c-tree-collspan-children"> {children}</div>,
     [children, collspanState]
@@ -86,12 +86,12 @@ const CtTreeRenderMap = (item: ComponentsInterface, level = 0) => {
   const hasChildren = item.children && item.children.length >= 1
   if (hasChildren) {
     return (
-      <CTCollspanNode node={item} level={level} key={item.name}>
+      <CTCollspanNode node={item} level={level} key={item.id}>
         {item.children.map((item) => CtTreeRenderMap(item, level))}
       </CTCollspanNode>
     )
   } else {
-    return <CTreeNode level={level} node={item} key={item.name} />
+    return <CTreeNode level={level} node={item} key={item.id} />
   }
 }
 

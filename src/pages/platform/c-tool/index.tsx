@@ -42,6 +42,7 @@ const ToolsMapRender: FC<ToolItemInject> = ({ toolItem }) => {
           'tools-map-render',
           targetActive != toolElementKey ? 'hidden' : '',
         ])}
+        key={toolElementKey}
       >
         <_ToolElement />
       </div>

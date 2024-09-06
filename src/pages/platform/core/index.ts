@@ -1,7 +1,7 @@
 // platform创作的对象以单例模式保存，只需要在页面初始化后访问都是该对象
 // 使用builder去完善内容
 
-import { BaseComponent, BaseContainerFactory } from './component'
+import { BaseComponent, BaseContainerFactory, RootComponent } from './component'
 import {
   ComponentFactoryInterface,
   ComponentsInterface,
@@ -28,7 +28,7 @@ class SignleRecordCreater {
 
 /** 构造实例化对象，实现单例模式 只进行一次创建*/
 const CreateSignleRecord = (() => {
-  const component = new BaseComponent({ name: 'root' })
+  const component = new RootComponent({ name: 'root' })
   return () => component
 })()
 

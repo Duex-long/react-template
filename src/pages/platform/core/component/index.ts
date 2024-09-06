@@ -5,12 +5,20 @@ import {
   ComponentConstructorParamsInterface,
   ComponentFactoryInterface,
   ComponentsInterface,
+  LeafComponentConstructorParamsInterface,
+  LeafComponentInterface,
+  RootComponentInterface,
 } from '../interface/components'
 import { IconType } from '../type'
 import { BorderOutlined } from '@ant-design/icons'
 
-/** 基础容器*/
-class BaseComponent implements ComponentsInterface {
+let did = 0
+const getDid = () => {
+  return ++did
+}
+/** */
+abstract class Component implements ComponentsInterface {
+  id = getDid()
   readonly name: string
   attribute: AttributeInterface = {}
   children: Array<ComponentsInterface> = []
@@ -19,20 +27,36 @@ class BaseComponent implements ComponentsInterface {
   }
   /**  method */
   appendChild = (child: ComponentsInterface) => {
-      this.children.push(child)
-  };
+    this.children = [...this.children, child]
+  }
+}
+/** 基础容器*/
+class BaseComponent extends Component implements LeafComponentInterface {
+  id = getDid()
+  parent: ComponentsInterface
+  constructor(params: LeafComponentConstructorParamsInterface) {
+    super(params)
+    const { parent } = params
+    this.parent = parent
+  }
+}
+/** 根节点容器*/
+class RootComponent extends Component implements RootComponentInterface {
+  parent = null
 }
 
 /** 基础容器工厂 */
 class BaseContainerFactory implements ComponentFactoryInterface {
   readonly name: string = '容器'
   icon: IconType = BorderOutlined
-  create = (config: ComponentConstructorParamsInterface) => {
+  create = (config: LeafComponentConstructorParamsInterface) => {
     return new BaseComponent(config)
   }
 }
 
 export {
+  /** 根节点容器*/
+  RootComponent,
   /** 基础容器*/
   BaseComponent,
   /** 基础容器工厂 */

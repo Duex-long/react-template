@@ -2,7 +2,7 @@ import './index.less'
 import { FC } from 'react'
 import { BorderOutlined } from '@ant-design/icons'
 import ScaleTextRender from '@/components/common/scaleText/scaleText'
-import { useRecordTarget } from '../../core'
+import { useComponentTarget, useRecordTarget } from '../../core'
 import { ComponentFactoryInterface } from '../../core/interface/components'
 import { useDispatch } from 'react-redux'
 
@@ -12,11 +12,17 @@ const CCreateItem: FC<{ factory: ComponentFactoryInterface }> = ({
 }) => {
   const dispach = useDispatch()
   const record = useRecordTarget()
+  const target = useComponentTarget()
 
   const createContainer = () => {
+    const node = factory.create({ name: '容器', parent: target })
     dispach({
-      type: 'platform/appendContainer',
-      payload: factory.create({ name: '容器' }),
+      type: 'platform/targetAppendChild',
+      payload: node,
+    })
+    dispach({
+      type: 'platform/updateSelectTarget',
+      payload: node,
     })
   }
   return (
