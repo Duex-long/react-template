@@ -17,6 +17,10 @@ class BaseComponent implements ComponentsInterface {
   constructor({ name }: ComponentConstructorParamsInterface) {
     this.name = name
   }
+  /**  method */
+  appendChild = (child: ComponentsInterface) => {
+      this.children.push(child)
+  };
 }
 
 /** 基础容器工厂 */

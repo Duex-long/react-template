@@ -19,25 +19,33 @@ const indexSlice = createSlice({
   },
 })
 
-const platformState = {
-  record: SignleRecordInstance,
+const platformState = () => {
+  return {
+    record: SignleRecordInstance,
+    target: SignleRecordInstance.componentRoot,
+  }
 }
 
 const platformSlice = createSlice({
   name: 'platform',
   initialState: platformState,
   reducers: {
+    /** 测试用 */
     createFactory(state, { payload }: { payload: ComponentFactoryInterface }) {
       state.record.componentFactoryCollection.push(payload)
       state.record = {
         ...state.record,
       }
     },
+    /** 更新选择节点*/
+    updateSelectTarget(state, { payload }: { payload: ComponentsInterface }) {
+      state.target = payload
+    },
+    /** 增加子节点*/
     appendContainer(state, { payload }: { payload: ComponentsInterface }) {
-      console.log('???')
-      state.record.componentTree.children.push(payload)
-      state.record = {
-        ...state.record
+      state.target.appendChild(payload)
+      state.target = {
+        ...state.target,
       }
     },
   },

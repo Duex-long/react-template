@@ -4,7 +4,6 @@ import { BorderOutlined } from '@ant-design/icons'
 import ScaleTextRender from '@/components/common/scaleText/scaleText'
 import { useRecordTarget } from '../../core'
 import { ComponentFactoryInterface } from '../../core/interface/components'
-import { BaseContainerFactory } from '../../core/component'
 import { useDispatch } from 'react-redux'
 
 /** 创建组件项 */

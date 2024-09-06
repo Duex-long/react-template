@@ -15,12 +15,12 @@ class SignleRecordCreater {
   /**  模板类型 */
   type = 'default'
   /** 容器树 初始化根节点 */
-  componentTree: ComponentsInterface
+  componentRoot: ComponentsInterface
   /** 工厂收集器 */
   componentFactoryCollection: ComponentFactoryInterface[] = []
 
   constructor(options: { component: ComponentsInterface }) {
-    this.componentTree = options.component
+    this.componentRoot = options.component
     /** 实例化工厂 */
     this.componentFactoryCollection.push(new BaseContainerFactory())
   }
@@ -44,13 +44,24 @@ const SignleRecordInstance = init()
 
 /** record实例 */
 const useRecordTarget = (): SignleRecordCreater => {
-  const recordService = useSelector<{
+  return useSelector<{
     platform: { record: SignleRecordCreater }
   }>((state) => state.platform.record) as SignleRecordCreater
-  return recordService
+}
+
+/** target实例 */
+const useComponentTarget = (): ComponentsInterface => {
+  return useSelector<{
+    platform: { target: ComponentsInterface }
+  }>((state) => state.platform.target) as ComponentsInterface
 }
 
 /** 暴露声明类 由上下文选择性创建*/
 export default SignleRecordCreater
 
-export { CreateSignleRecord, useRecordTarget, SignleRecordInstance }
+export {
+  CreateSignleRecord,
+  useRecordTarget,
+  useComponentTarget,
+  SignleRecordInstance,
+}

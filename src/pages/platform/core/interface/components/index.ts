@@ -1,4 +1,4 @@
-import { IconType } from "../../type"
+import { IconType } from '../../type'
 
 /** 样式*/
 interface StyleInterface {
@@ -18,13 +18,13 @@ interface ComponentsInterface {
   children: Array<ComponentsInterface>
   /** 名称 */
   name: string
-  /** icon */
+  appendChild:(child:ComponentsInterface) => void
 }
 
 /** 实例化组建类型参数 */
 interface ComponentConstructorParamsInterface {
   /** 名称 */
-  name:string
+  name: string
 }
 
 /** Component工厂 */
@@ -35,8 +35,13 @@ interface ComponentFactoryInterface {
   /** 名称*/
   name: string
   /** icon */
-  icon:IconType
+  icon: IconType
 }
 
-
-export type { ComponentFactoryInterface,ComponentsInterface, AttributeInterface, StyleInterface,ComponentConstructorParamsInterface }
+export type {
+  ComponentFactoryInterface,
+  ComponentsInterface,
+  AttributeInterface,
+  StyleInterface,
+  ComponentConstructorParamsInterface,
+}

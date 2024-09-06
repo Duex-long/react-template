@@ -10,12 +10,22 @@ import './index.less'
 import { GatewayOutlined, RightOutlined } from '@ant-design/icons'
 import { joinCssList } from '@/utils/style'
 import { ComponentsInterface } from '../../core/interface/components'
-import { useRecordTarget } from '../../core'
+import { useComponentTarget, useRecordTarget } from '../../core'
+import { useDispatch } from 'react-redux'
 
 const CTreeNode: FC<{ level: number; node: ComponentsInterface }> = ({
   level,
   node,
 }) => {
+  const dispach = useDispatch()
+  const currentComponent = useComponentTarget()
+
+  const nodeSelect = (node: ComponentsInterface) => {
+    dispach({
+      type: 'platform/updateSelectTarget',
+      payload: node,
+    })
+  }
   const memoryStyle = useMemo<CSSProperties>(
     () => ({
       marginLeft: `-${level * 2}rem`,
@@ -25,7 +35,14 @@ const CTreeNode: FC<{ level: number; node: ComponentsInterface }> = ({
   )
 
   return (
-    <div className="c-tree-node" style={memoryStyle}>
+    <div
+      className={joinCssList([
+        'c-tree-node',
+        currentComponent == node ? 'active' : '',
+      ])}
+      style={memoryStyle}
+      onClick={() => nodeSelect(node)}
+    >
       <div className="c-tree-node-icon">
         <GatewayOutlined />
       </div>
@@ -126,10 +143,10 @@ const CtTreeRenderMap = (item: ComponentsInterface, level = 0) => {
 // ]
 
 const CTree = () => {
-  const  record = useRecordTarget()
+  const record = useRecordTarget()
   return (
     <div className="c-tree c-tool-content-item">
-      {CtTreeRenderMap(record.componentTree)}
+      {CtTreeRenderMap(record.componentRoot)}
     </div>
   )
 }
