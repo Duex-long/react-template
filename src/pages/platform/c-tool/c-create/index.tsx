@@ -11,7 +11,6 @@ const CCreateItem: FC<{ factory: ComponentFactoryInterface }> = ({
   factory,
 }) => {
   const dispach = useDispatch()
-  const record = useRecordTarget()
   const target = useComponentTarget()
 
   const createContainer = () => {

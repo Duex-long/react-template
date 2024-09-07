@@ -20,16 +20,23 @@ interface ComponentsInterface {
   children: Array<ComponentsInterface>
   /** 名称 */
   name: string
+  /** */
   appendChild: (child: ComponentsInterface) => void
 }
 
+/** 块级容器*/
+interface BlockComponentInterface extends ComponentsInterface {
+  appendChild: (child: ComponentsInterface) => void
+}
+/** 行内容器 */
+interface InlineComponentInterafce extends ComponentsInterface {}
 /** 普通容器 */
 interface LeafComponentInterface extends ComponentsInterface {
   /** 父节点 */
   parent: ComponentsInterface
 }
 /** 根容器 */
-interface RootComponentInterface extends ComponentsInterface {
+interface RootComponentInterface extends BlockComponentInterface {
   parent: null
 }
 
@@ -50,7 +57,9 @@ interface LeafComponentConstructorParamsInterface
 
 interface ComponentFactoryInterface {
   /** 构造器*/
-  create: (config: LeafComponentConstructorParamsInterface) => ComponentsInterface
+  create: (
+    config: LeafComponentConstructorParamsInterface
+  ) => ComponentsInterface
   /** 名称*/
   name: string
   /** icon */
@@ -66,4 +75,5 @@ export type {
   LeafComponentConstructorParamsInterface,
   RootComponentInterface,
   LeafComponentInterface,
+  InlineComponentInterafce,
 }

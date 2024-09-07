@@ -1,10 +1,5 @@
-import SignleRecordCreater, {
-  SignleRecordInstance,
-} from '@/pages/platform/core'
-import {
-  ComponentFactoryInterface,
-  ComponentsInterface,
-} from '@/pages/platform/core/interface/components'
+import { SignleRecordInstance } from '@/pages/platform/core'
+import { ComponentsInterface } from '@/pages/platform/core/interface/components'
 import { createSlice, combineReducers, configureStore } from '@reduxjs/toolkit'
 
 const indexSlice = createSlice({
@@ -26,21 +21,6 @@ const initialState = {
 
 const platformState = () => {
   return initialState
-}
-
-const updateRecord = (record: SignleRecordCreater) => {
-  initialState.record = record
-  return {
-    ...initialState,
-    record,
-  }
-}
-
-const updateTarget = (target: ComponentsInterface) => {
-  return {
-    ...initialState,
-    target,
-  }
 }
 
 const platformSlice = createSlice({

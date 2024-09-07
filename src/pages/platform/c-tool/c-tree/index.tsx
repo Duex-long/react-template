@@ -95,52 +95,7 @@ const CtTreeRenderMap = (item: ComponentsInterface, level = 0) => {
   }
 }
 
-// const MockComponent  = [
-//   {
-//     name: 'component-1',
-//     children: [
-//       {
-//         name: 'component-1-1',
-//         children: [],
-//       },
-//       {
-//         name: 'component-1-2',
-//         children: [
-//           {
-//             name: 'component-1-2-1',
-//             children: [],
-//           },
-//           {
-//             name: 'component-1-2-2',
-//             children: [],
-//           },
-//         ],
-//       },
-//     ],
-//   },
-//   {
-//     name: 'component-2',
-//     children: [
-//       {
-//         name: 'component-2-1',
-//         children: [
-//           {
-//             name: 'component-2-1-1',
-//             children: [],
-//           },
-//           {
-//             name: 'component-2-1-2',
-//             children: [],
-//           },
-//         ],
-//       },
-//       {
-//         name: 'component-2-2',
-//         children: [],
-//       },
-//     ],
-//   },
-// ]
+
 
 const CTree = () => {
   const record = useRecordTarget()

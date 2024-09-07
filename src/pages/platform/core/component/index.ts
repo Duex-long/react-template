@@ -16,7 +16,7 @@ let did = 0
 const getDid = () => {
   return ++did
 }
-/** */
+/** 抽象 */
 abstract class Component implements ComponentsInterface {
   id = getDid()
   readonly name: string
@@ -30,7 +30,7 @@ abstract class Component implements ComponentsInterface {
     this.children = [...this.children, child]
   }
 }
-/** 基础容器*/
+/** 块级容器*/
 class BaseComponent extends Component implements LeafComponentInterface {
   id = getDid()
   parent: ComponentsInterface
@@ -44,6 +44,7 @@ class BaseComponent extends Component implements LeafComponentInterface {
 class RootComponent extends Component implements RootComponentInterface {
   parent = null
 }
+/** 行内叶节点 */
 
 /** 基础容器工厂 */
 class BaseContainerFactory implements ComponentFactoryInterface {
