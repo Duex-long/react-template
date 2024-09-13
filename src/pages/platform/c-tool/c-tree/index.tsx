@@ -95,8 +95,6 @@ const CtTreeRenderMap = (item: ComponentsInterface, level = 0) => {
   }
 }
 
-
-
 const CTree = () => {
   const record = useRecordTarget()
   return (
