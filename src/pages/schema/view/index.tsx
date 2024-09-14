@@ -47,6 +47,7 @@ const CreateForm: FC<{ schemaList: FormItemInterface[] }> = ({
       form={form}
       layout="vertical"
       autoComplete="off"
+      wrapperCol={{ span: 24 }}
     >
       {schemaList.map(CreateFormItem)}
     </Form>
