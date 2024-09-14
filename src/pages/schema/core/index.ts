@@ -1,8 +1,9 @@
 import { InputNumber } from 'antd'
-import { FC } from 'react'
+import { FC, ReactElement } from 'react'
+
 
 const renderMap: { [x: string]: FC } = {
-  InputNumber: InputNumber,
+  'InputNumber': InputNumber,
 }
 
 /**  获取component */

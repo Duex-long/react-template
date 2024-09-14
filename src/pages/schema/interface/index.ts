@@ -11,7 +11,9 @@ interface FormItemInterface {
   /** 校验规则 */
   rules?: Rule[]
   /**  默认值*/
-  defaultValue:unknown
+  defaultValue: unknown
+  /**  拓展属性 */
+  expandConfig:Record<string,any>
 }
 
 export type { FormItemInterface }

@@ -3,13 +3,18 @@ import { getTypeComponent } from '../core'
 import { FormItemInterface } from '../interface'
 import { Form } from 'antd'
 
-const getDefaultValue = (config:Array<FormItemInterface>) => {
-    return config.map((item) => ({[item.name]:item.defaultValue}))
+const getDefaultValue = (config: Array<FormItemInterface>) => {
+  const result: { [x: string]: unknown } = {}
+  config.forEach((item) => {
+    result[item.name] = item.defaultValue
+  })
+  return result
 }
 
 const CreateFormItem: FC<FormItemInterface> = (config: FormItemInterface) => {
   const { name, label, rules } = config
   const InsertComponent = getTypeComponent(config.type)
+  console.log(name, 'name')
   return (
     <Form.Item
       label={label}
@@ -18,7 +23,7 @@ const CreateFormItem: FC<FormItemInterface> = (config: FormItemInterface) => {
       rules={rules}
       messageVariables={{ name }}
     >
-      <InsertComponent />
+      <InsertComponent {...config.expandConfig} />
     </Form.Item>
   )
 }
@@ -32,15 +37,10 @@ const CreateForm: FC<{ schemaList: FormItemInterface[] }> = ({
   }
   const valueList = watchAllVal()
   useEffect(() => {
-    console.log(valueList, '变化')
+    console.log(valueList, '嵌入变化')
   }, [valueList])
 
-  // const finish = (val: unknown) => {}
-  // const numberValue = Form.useWatch('number', form)
-  // useEffect(() => {
-  //   console.log('update')
-  // },[numberValue])
-
+  console.log(getDefaultValue(schemaList), '初始值')
   return (
     <Form
       initialValues={getDefaultValue(schemaList)}
