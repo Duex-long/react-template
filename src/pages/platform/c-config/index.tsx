@@ -4,31 +4,7 @@ import { Collapse } from 'antd'
 import { CreateForm } from '@/pages/schema/view'
 import { FormItemInterface } from '@/pages/schema/interface'
 import { CollapseProps } from 'antd/es/collapse/Collapse'
-
-const formList: Array<FormItemInterface> = [
-  {
-    name: 'fontSize',
-    label: '字体',
-    type: 'InputNumber',
-    defaultValue: 16,
-    expandConfig: {
-      suffix: 'px',
-      style: {'width':'100%'},
-      //   size: 'small',
-    },
-  },
-  {
-    name: 'lineHeight',
-    label: '行高',
-    type: 'InputNumber',
-    defaultValue: 16,
-    expandConfig: {
-        suffix: 'px',
-        style: {'width':'100%'},
-      //   size: 'small',
-    },
-  },
-]
+import { StyleConfig } from './c-attr/c-attr-style/config'
 
 const CConfigStyleItem = ({ items }: Pick<CollapseProps, 'items'>) => {
   return (
@@ -58,8 +34,10 @@ const CConfig: FC = () => {
   return (
     <div className="c-config">
       <div className="c-config-container">
-        <h3 className="app-title-h3">Title</h3>
-        {CConfigStyleItem(collapseItemPipe('文字样式', formList))}
+        <h3 className="app-title-h3">属性</h3>
+        {StyleConfig.map((item) =>
+          CConfigStyleItem(collapseItemPipe(item.label, item.data))
+        )}
       </div>
     </div>
   )
