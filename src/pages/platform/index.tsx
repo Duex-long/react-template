@@ -1,4 +1,5 @@
 import CConfig from './c-config'
+import CPreview from './c-preview'
 import CTool from './c-tool'
 import { useRecordTarget } from './core'
 import './platform.less'
@@ -13,7 +14,9 @@ const Platform = () => {
         <div className="app-platform-component border-shadow">
           <CTool />
         </div>
-        <div className="app-platform-template"></div>
+        <div className="app-platform-template">
+          <CPreview />
+        </div>
         <div className="app-platform-config">
           <CConfig />
         </div>

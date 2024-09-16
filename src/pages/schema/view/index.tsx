@@ -14,7 +14,6 @@ const getDefaultValue = (config: Array<FormItemInterface>) => {
 const CreateFormItem: FC<FormItemInterface> = (config: FormItemInterface) => {
   const { name, label, rules } = config
   const InsertComponent = getTypeComponent(config.type)
-  console.log(name, 'name')
   return (
     <Form.Item
       label={label}
@@ -28,19 +27,35 @@ const CreateFormItem: FC<FormItemInterface> = (config: FormItemInterface) => {
   )
 }
 
-const CreateForm: FC<{ schemaList: FormItemInterface[] }> = ({
-  schemaList,
-}) => {
+const CreateForm: FC<{
+  schemaList: FormItemInterface[]
+  updateCallback?: (
+    dataList: {
+      name: string
+      value: string | number
+    }[]
+  ) => void
+}> = ({ schemaList, updateCallback }) => {
   const [form] = Form.useForm()
+
   const watchAllVal = () => {
-    return schemaList.map((item) => Form.useWatch(item.name, form))
+    return schemaList.map((item) => ({
+      name: item.name,
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      value: Form.useWatch(item.name, form),
+    }))
   }
   const valueList = watchAllVal()
   useEffect(() => {
-    console.log(valueList, '嵌入变化')
-  }, [valueList])
+    if (
+      valueList.every(
+        ({ value }) => typeof value !== 'undefined' && value !== null
+      )
+    ) {
+      updateCallback && updateCallback(valueList)
+    }
+  }, [updateCallback, valueList])
 
-  console.log(getDefaultValue(schemaList), '初始值')
   return (
     <Form
       initialValues={getDefaultValue(schemaList)}

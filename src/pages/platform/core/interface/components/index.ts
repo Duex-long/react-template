@@ -1,14 +1,6 @@
 import { IconType } from '../../type'
-
-/** 样式*/
-interface StyleInterface {
-  [key: string]: string
-}
-/** 属性 */
-interface AttributeInterface {
-  /** 目前仅支持css */
-  css?: Array<StyleInterface>
-}
+import { AttributeInterface } from '../attribute/attr'
+import { StyleInterface } from '../attribute/style'
 
 /** 容器 */
 interface ComponentsInterface {
@@ -28,6 +20,7 @@ interface ComponentsInterface {
 interface BlockComponentInterface extends ComponentsInterface {
   appendChild: (child: ComponentsInterface) => void
 }
+
 /** 行内容器 */
 interface InlineComponentInterafce extends ComponentsInterface {}
 /** 普通容器 */

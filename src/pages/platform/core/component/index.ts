@@ -1,5 +1,6 @@
 /** ComponentFactory */
 
+import Attribute from '../attribute'
 import {
   AttributeInterface,
   ComponentConstructorParamsInterface,
@@ -20,7 +21,7 @@ const getDid = () => {
 abstract class Component implements ComponentsInterface {
   id = getDid()
   readonly name: string
-  attribute: AttributeInterface = {}
+  attribute: AttributeInterface = new Attribute()
   children: Array<ComponentsInterface> = []
   constructor({ name }: ComponentConstructorParamsInterface) {
     this.name = name
