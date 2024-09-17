@@ -1,4 +1,6 @@
+import { useRecordTarget } from '../core'
 import './index.less'
+
 const CPreview = () => {
   return <div className="c-priview"></div>
 }

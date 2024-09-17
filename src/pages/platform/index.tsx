@@ -9,7 +9,9 @@ const Platform = () => {
 
   return (
     <>
-      <div className="app-title-h2">{signalInstance.name}</div>
+      <div className="app-platform-title app-title-h2">
+        {signalInstance.name}
+      </div>
       <div className="app-platform full-page">
         <div className="app-platform-component border-shadow">
           <CTool />
