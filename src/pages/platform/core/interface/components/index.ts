@@ -4,6 +4,8 @@ import { StyleInterface } from '../attribute/style'
 
 /** 容器 */
 interface ComponentsInterface {
+  /** type */
+  type: string
   /** id */
   id: number | string
   /** 属性 */

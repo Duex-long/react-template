@@ -13,6 +13,7 @@ import { ComponentsInterface } from '../../core/interface/components'
 import { useComponentTarget, useRecordTarget } from '../../core'
 import { useDispatch } from 'react-redux'
 
+/** 节点 */
 const CTreeNode: FC<{ level: number; node: ComponentsInterface }> = ({
   level,
   node,
@@ -50,7 +51,7 @@ const CTreeNode: FC<{ level: number; node: ComponentsInterface }> = ({
     </div>
   )
 }
-
+/** 含有子节点的节点*/
 const CTCollspanNode: FC<{
   level: number
   children: ReactNode
@@ -79,7 +80,6 @@ const CTCollspanNode: FC<{
     </div>
   )
 }
-
 // render嵌套列表
 const CtTreeRenderMap = (item: ComponentsInterface, level = 0) => {
   level = level + 1
@@ -94,7 +94,7 @@ const CtTreeRenderMap = (item: ComponentsInterface, level = 0) => {
     return <CTreeNode level={level} node={item} key={item.id} />
   }
 }
-
+/**树 */
 const CTree = () => {
   const record = useRecordTarget()
   return (

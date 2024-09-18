@@ -5,7 +5,7 @@ type AttrItemType = { [x: string]: string | number }
 /** 属性 */
 interface AttributeInterface {
   /** 目前仅支持css */
-  css?: StyleInterface
+  style?: StyleInterface
 
   /** method */
   updateCss: (style: StyleInterface) => void
