@@ -1,5 +1,8 @@
 import { SignleRecordInstance } from '@/pages/platform/core'
-import { ComponentsInterface } from '@/pages/platform/core/interface/components'
+import {
+  ComponentsInterface,
+  StyleInterface,
+} from '@/pages/platform/core/interface/components'
 import { createSlice, combineReducers, configureStore } from '@reduxjs/toolkit'
 
 const indexSlice = createSlice({
@@ -34,6 +37,14 @@ const platformSlice = createSlice({
     /** 增加子节点*/
     targetAppendChild(state, { payload }: { payload: ComponentsInterface }) {
       state.target.appendChild(payload)
+    },
+    /** 更新css */
+    updateStyle(state, { payload }: { payload: StyleInterface }) {
+      state.target.attribute.css = {
+        ...state.target.attribute.css,
+        ...payload
+      }
+    
     },
   },
 })

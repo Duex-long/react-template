@@ -8,6 +8,7 @@ import { StyleConfig } from './c-attr/c-attr-style/config'
 import { useComponentTarget } from '../core'
 import { StyleInterface } from '../core/interface/components'
 import { AttrItemType } from '../core/interface/attribute/attr'
+import { useDispatch } from 'react-redux'
 interface CConfigStyleItemProps extends Pick<CollapseProps, 'items'> {
   label: string
 }
@@ -27,7 +28,8 @@ const StyleCreateFormRender: FC<{ formList: Array<FormItemInterface> }> = ({
   formList,
 }) => {
   /** 获取实例 */
-  const currentComponent = useComponentTarget()
+  // const currentComponent = useComponentTarget()
+  const dispatch = useDispatch()
   const updateConfig = (
     value: {
       name: string
@@ -35,7 +37,10 @@ const StyleCreateFormRender: FC<{ formList: Array<FormItemInterface> }> = ({
     }[]
   ) => {
     const styleContent = styleRedurce(value)
-    currentComponent.attribute.updateCss(styleContent)
+    dispatch({
+      type: 'platform/updateStyle',
+      payload: styleContent,
+    })
   }
   return <CreateForm schemaList={formList} updateCallback={updateConfig} />
 }
