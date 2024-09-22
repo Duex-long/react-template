@@ -16,6 +16,8 @@ interface ComponentsInterface {
   name: string
   /** */
   appendChild: (child: ComponentsInterface) => void
+  /** clone */
+  clone: () => ComponentsInterface
 }
 
 /** 块级容器*/

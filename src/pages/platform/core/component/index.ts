@@ -24,12 +24,18 @@ abstract class Component implements ComponentsInterface {
   readonly name: string
   attribute: AttributeInterface = new Attribute()
   children: Array<ComponentsInterface> = []
+
   constructor({ name }: ComponentConstructorParamsInterface) {
     this.name = name
   }
   /**  method */
   appendChild = (child: ComponentsInterface) => {
     this.children = [...this.children, child]
+  }
+  clone() {
+    return {
+      ...this,
+    }
   }
   /** getter */
   get type() {

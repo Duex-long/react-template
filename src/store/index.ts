@@ -48,7 +48,7 @@ const platformSlice = createSlice({
         ...state.target.attribute.style,
         ...payload,
       }
-      
+
     },
   },
 })
