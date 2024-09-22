@@ -44,11 +44,11 @@ const platformSlice = createSlice({
     },
     /** 更新css */
     updateStyle(state, { payload }: { payload: StyleInterface }) {
-      state.target.attribute.css = {
-        ...state.target.attribute.css,
-        ...payload
+      state.target.attribute.style = {
+        ...state.target.attribute.style,
+        ...payload,
       }
-    
+      
     },
   },
 })
