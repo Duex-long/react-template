@@ -37,6 +37,10 @@ const platformSlice = createSlice({
     /** 增加子节点*/
     targetAppendChild(state, { payload }: { payload: ComponentsInterface }) {
       state.target.appendChild(payload)
+      /** 添加子节点后 record中的内容也需要进行替换 */
+      state.record = {
+        ...state.record,
+      }
     },
     /** 更新css */
     updateStyle(state, { payload }: { payload: StyleInterface }) {

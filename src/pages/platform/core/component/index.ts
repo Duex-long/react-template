@@ -19,6 +19,7 @@ const getDid = () => {
 }
 /** 抽象 */
 abstract class Component implements ComponentsInterface {
+  readonly _type = 'div'
   id = getDid()
   readonly name: string
   attribute: AttributeInterface = new Attribute()
@@ -29,6 +30,10 @@ abstract class Component implements ComponentsInterface {
   /**  method */
   appendChild = (child: ComponentsInterface) => {
     this.children = [...this.children, child]
+  }
+  /** getter */
+  get type() {
+    return this._type
   }
 }
 /** 块级容器*/

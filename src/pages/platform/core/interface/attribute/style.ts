@@ -1,6 +1,6 @@
 /** 样式*/
 interface StyleInterface {
-  CSSProperties?: string | number
+  [CSSProperties: string]: string | number
 }
 
 export type { StyleInterface }
