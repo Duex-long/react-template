@@ -34,7 +34,11 @@ const createElement = (
   children: React.ReactNode[] = []
 ): React.ReactNode => {
   console.log(attr)
-  return React.createElement(type, { name, ...attr }, children)
+  return React.createElement(
+    type,
+    { className: 'c-perview-block', name, ...attr },
+    children
+  )
 }
 
 const astToReactElement = (ast: ComponentAsType): React.ReactNode => {
@@ -43,9 +47,9 @@ const astToReactElement = (ast: ComponentAsType): React.ReactNode => {
   return createElement(ast, childrenNode)
 }
 
-const compire = (rootComponent: ComponentsInterface) => {
+const render = (rootComponent: ComponentsInterface) => {
   const _ast = componentsToAs(rootComponent)
   return astToReactElement(_ast)
 }
 
-export default compire
+export default render
