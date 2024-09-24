@@ -4,6 +4,7 @@ import {
   StyleInterface,
 } from '@/pages/platform/core/interface/components'
 import { createSlice, combineReducers, configureStore } from '@reduxjs/toolkit'
+import { Component } from 'react'
 
 const indexSlice = createSlice({
   name: 'index',
@@ -26,6 +27,25 @@ const platformState = () => {
   return initialState
 }
 
+const bfSearchComponent = (
+  rootComponent: ComponentsInterface,
+  check: (component: ComponentsInterface) => boolean
+) => {
+  const children = rootComponent.children
+  const queue = [...children]
+  while (queue.length) {
+    const val = queue.shift()
+    if (val) {
+      const assertValue = check(val)
+      if (assertValue) return val
+      const children = val.children
+      queue.push(...children)
+    }
+  }
+
+  return undefined
+}
+
 const platformSlice = createSlice({
   name: 'platform',
   initialState: platformState,
@@ -44,11 +64,36 @@ const platformSlice = createSlice({
     },
     /** 更新css */
     updateStyle(state, { payload }: { payload: StyleInterface }) {
+      const keys = Object.keys(payload)
+      const hasChange = keys.some(
+        (item) =>
+          payload[item] !==
+          state.target.attribute.style[item as keyof StyleInterface]
+      )
+      if (!hasChange) return
       state.target.attribute.style = {
         ...state.target.attribute.style,
         ...payload,
       }
-
+      console.log(state.target.id)
+      if (state.target.id == 1) {
+        const copyRootComponent = state.target.clone()
+        state.target = copyRootComponent
+        state.record = {
+          ...state.record,
+          componentRoot: copyRootComponent,
+        }
+        console.log('更新copy组件')
+      } else {
+        const parent = bfSearchComponent(
+          state.record.componentRoot,
+          (target) => {
+            console.log(target, 'target')
+            return target.id == state.target.id
+          }
+        )
+        console.log(parent)
+      }
     },
   },
 })

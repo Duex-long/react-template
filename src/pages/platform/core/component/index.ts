@@ -20,22 +20,28 @@ const getDid = () => {
 /** 抽象 */
 abstract class Component implements ComponentsInterface {
   readonly _type = 'div'
-  id = getDid()
+  id
   readonly name: string
   attribute: AttributeInterface = new Attribute()
   children: Array<ComponentsInterface> = []
 
-  constructor({ name }: ComponentConstructorParamsInterface) {
+  constructor({ name, id }: ComponentConstructorParamsInterface) {
     this.name = name
+    this.id = id || getDid()
   }
   /**  method */
   appendChild = (child: ComponentsInterface) => {
     this.children = [...this.children, child]
   }
-  clone() {
-    return {
-      ...this,
+  removeChild(child: ComponentsInterface) {
+    const id = child.id
+    const target = this.children.findIndex((item) => item.id == id)
+    if (~target) {
+      this.children.splice(target, 1)
     }
+  }
+  clone(): ComponentsInterface {
+    return this
   }
   /** getter */
   get type() {
@@ -44,17 +50,31 @@ abstract class Component implements ComponentsInterface {
 }
 /** 块级容器*/
 class BaseComponent extends Component implements LeafComponentInterface {
-  id = getDid()
-  parent: ComponentsInterface
+  parentId: number
   constructor(params: LeafComponentConstructorParamsInterface) {
     super(params)
-    const { parent } = params
-    this.parent = parent
+    const { parentId } = params
+    this.parentId = parentId
+  }
+  clone(): ComponentsInterface {
+    const params = { parentId: this.parentId, name: this.name, id: this.id }
+    const _copyInstance = new BaseComponent(params)
+    const children = this.children
+    _copyInstance.children = children
+    return _copyInstance
   }
 }
 /** 根节点容器*/
 class RootComponent extends Component implements RootComponentInterface {
-  parent = null
+  parentId = -1
+
+  clone(): ComponentsInterface {
+    const params = { parentId: this.parentId, name: this.name, id: this.id }
+    const _copyInstance = new RootComponent(params)
+    const children = this.children
+    _copyInstance.children = children
+    return _copyInstance
+  }
 }
 /** 行内叶节点 */
 
