@@ -3,6 +3,7 @@
 import Attribute from '../attribute'
 import {
   AttributeInterface,
+  CloneCreaterType,
   ComponentConstructorParamsInterface,
   ComponentFactoryInterface,
   ComponentsInterface,
@@ -24,6 +25,7 @@ abstract class Component implements ComponentsInterface {
   readonly name: string
   attribute: AttributeInterface = new Attribute()
   children: Array<ComponentsInterface> = []
+  parentId = NaN
 
   constructor({ name, id }: ComponentConstructorParamsInterface) {
     this.name = name
@@ -40,9 +42,17 @@ abstract class Component implements ComponentsInterface {
       this.children.splice(target, 1)
     }
   }
-  clone(): ComponentsInterface {
-    return this
+  clone() {
+    const _Creater = this.constructor as CloneCreaterType
+    const params = { parentId: this.parentId, name: this.name, id: this.id }
+    const _copyInstance = new _Creater(params)
+    const children = this.children
+    const _attribute = this.attribute
+    _copyInstance.attribute = _attribute
+    _copyInstance.children = children
+    return _copyInstance
   }
+
   /** getter */
   get type() {
     return this._type
@@ -56,29 +66,10 @@ class BaseComponent extends Component implements LeafComponentInterface {
     const { parentId } = params
     this.parentId = parentId
   }
-  clone(): ComponentsInterface {
-    const params = { parentId: this.parentId, name: this.name, id: this.id }
-    const _copyInstance = new BaseComponent(params)
-    const children = this.children
-    const _attribute = this.attribute
-    _copyInstance.attribute = _attribute
-    _copyInstance.children = children
-    return _copyInstance
-  }
 }
 /** 根节点容器*/
 class RootComponent extends Component implements RootComponentInterface {
   parentId = -1
-
-  clone(): ComponentsInterface {
-    const params = { parentId: this.parentId, name: this.name, id: this.id }
-    const _copyInstance = new RootComponent(params)
-    const _attribute = this.attribute
-    const children = this.children
-    _copyInstance.attribute = _attribute
-    _copyInstance.children = children
-    return _copyInstance
-  }
 }
 /** 行内叶节点 */
 

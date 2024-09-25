@@ -2,8 +2,13 @@ import { IconType } from '../../type'
 import { AttributeInterface } from '../attribute/attr'
 import { StyleInterface } from '../attribute/style'
 
+type CloneCreaterType = new (
+  params: ComponentConstructorParamsInterface
+) => ComponentsInterface
 /** 容器 */
 interface ComponentsInterface {
+  /** 父节点 */
+  parentId: number
   /** type */
   type: string
   /** id */
@@ -30,10 +35,7 @@ interface BlockComponentInterface extends ComponentsInterface {
 /** 行内容器 */
 interface InlineComponentInterafce extends ComponentsInterface {}
 /** 普通容器 */
-interface LeafComponentInterface extends ComponentsInterface {
-  /** 父节点 */
-  parentId: number
-}
+interface LeafComponentInterface extends ComponentsInterface {}
 /** 根容器 */
 interface RootComponentInterface extends BlockComponentInterface {}
 
@@ -66,6 +68,7 @@ interface ComponentFactoryInterface {
 }
 
 export type {
+  CloneCreaterType,
   ComponentFactoryInterface,
   ComponentsInterface,
   AttributeInterface,
