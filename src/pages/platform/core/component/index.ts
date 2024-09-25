@@ -60,6 +60,8 @@ class BaseComponent extends Component implements LeafComponentInterface {
     const params = { parentId: this.parentId, name: this.name, id: this.id }
     const _copyInstance = new BaseComponent(params)
     const children = this.children
+    const _attribute = this.attribute
+    _copyInstance.attribute = _attribute
     _copyInstance.children = children
     return _copyInstance
   }
@@ -71,7 +73,9 @@ class RootComponent extends Component implements RootComponentInterface {
   clone(): ComponentsInterface {
     const params = { parentId: this.parentId, name: this.name, id: this.id }
     const _copyInstance = new RootComponent(params)
+    const _attribute = this.attribute
     const children = this.children
+    _copyInstance.attribute = _attribute
     _copyInstance.children = children
     return _copyInstance
   }

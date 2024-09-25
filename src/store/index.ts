@@ -65,17 +65,25 @@ const platformSlice = createSlice({
     /** 更新css */
     updateStyle(state, { payload }: { payload: StyleInterface }) {
       const keys = Object.keys(payload)
-      const hasChange = keys.some(
-        (item) =>
+      const hasChange = keys.some((item) => {
+        const assert =
           payload[item] !==
           state.target.attribute.style[item as keyof StyleInterface]
-      )
+
+        if (assert) {
+          console.log(
+            item,
+            '有变化',
+            state.target.attribute.style[item as keyof StyleInterface]
+          )
+        }
+        return assert
+      })
       if (!hasChange) return
       state.target.attribute.style = {
         ...state.target.attribute.style,
         ...payload,
       }
-      console.log(state.target.id)
       if (state.target.id == 1) {
         const copyRootComponent = state.target.clone()
         state.target = copyRootComponent
@@ -83,12 +91,10 @@ const platformSlice = createSlice({
           ...state.record,
           componentRoot: copyRootComponent,
         }
-        console.log('更新copy组件')
       } else {
         const parent = bfSearchComponent(
           state.record.componentRoot,
           (target) => {
-            console.log(target, 'target')
             return target.id == state.target.id
           }
         )
