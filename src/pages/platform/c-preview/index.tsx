@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useRecordTarget, useComponentTarget } from '../core'
+import { useRecordTarget } from '../core'
 import render from '../core/renderer'
 import './index.less'
 

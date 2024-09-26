@@ -14,6 +14,7 @@ type ComponentAsType = {
   type: string
   attr: AttributeInterface
   children: ComponentAsType[]
+  id: number
 }
 
 const componentsToAs = (component: ComponentsInterface): ComponentAsType => {
@@ -22,6 +23,7 @@ const componentsToAs = (component: ComponentsInterface): ComponentAsType => {
     type: component.type,
     attr: component.attribute,
     children: [],
+    id: component.id,
   }
   if (!component.children.length) {
     return result
@@ -30,13 +32,12 @@ const componentsToAs = (component: ComponentsInterface): ComponentAsType => {
   return result
 }
 const createElement = (
-  { type, name, attr }: ComponentAsType,
+  { type, name, attr, id }: ComponentAsType,
   children: React.ReactNode[] = []
 ): React.ReactNode => {
-  console.log(attr)
   return React.createElement(
     type,
-    { className: 'c-perview-block', name, ...attr },
+    { className: 'c-perview-block', name, ...attr, key: id },
     children
   )
 }

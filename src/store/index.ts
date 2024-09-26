@@ -69,14 +69,6 @@ const platformSlice = createSlice({
         const assert =
           payload[item] !==
           state.target.attribute.style[item as keyof StyleInterface]
-
-        if (assert) {
-          console.log(
-            item,
-            '有变化',
-            state.target.attribute.style[item as keyof StyleInterface]
-          )
-        }
         return assert
       })
       if (!hasChange) return
@@ -84,21 +76,24 @@ const platformSlice = createSlice({
         ...state.target.attribute.style,
         ...payload,
       }
-      if (state.target.id == 1) {
-        const copyRootComponent = state.target.clone()
-        state.target = copyRootComponent
-        state.record = {
-          ...state.record,
-          componentRoot: copyRootComponent,
-        }
-      } else {
+      const source = state.target
+      const copyRootComponent = state.target.clone()
+      state.target = copyRootComponent
+      state.record = {
+        ...state.record,
+        componentRoot: copyRootComponent,
+      }
+      if (state.target.id != 1) {
         const parent = bfSearchComponent(
           state.record.componentRoot,
           (target) => {
-            return target.id == state.target.id
+            return target.id == source.id
           }
         )
-        console.log(parent)
+        if (parent) {
+          parent.removeChild(source)
+          parent.appendChild(copyRootComponent)
+        }
       }
     },
   },
