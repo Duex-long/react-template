@@ -14,7 +14,7 @@ const CCreateItem: FC<{ factory: ComponentFactoryInterface }> = ({
   const target = useComponentTarget()
 
   const createContainer = () => {
-    const node = factory.create({ name: '容器', parent: target })
+    const node = factory.create({ name: '容器', parentId: target.id })
     dispach({
       type: 'platform/targetAppendChild',
       payload: node,

@@ -39,12 +39,17 @@ const CreateForm: FC<{
   const [form] = Form.useForm()
 
   const watchAllVal = () => {
-    return schemaList.map((item) => ({
-      name: item.name,
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      value: Form.useWatch(item.name, form),
-    }))
+    return schemaList.map((item) => {
+      const value = Form.useWatch(item.name, form)
+      return {
+        name: item.name,
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        value: value ? `${value}${item.expandConfig.suffix || ''}` : undefined,
+      }
+    })
   }
+  console.log(schemaList, 'schemaList')
+
   const valueList = watchAllVal()
   useEffect(() => {
     if (

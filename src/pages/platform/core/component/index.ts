@@ -3,6 +3,7 @@
 import Attribute from '../attribute'
 import {
   AttributeInterface,
+  CloneCreaterType,
   ComponentConstructorParamsInterface,
   ComponentFactoryInterface,
   ComponentsInterface,
@@ -19,31 +20,56 @@ const getDid = () => {
 }
 /** 抽象 */
 abstract class Component implements ComponentsInterface {
-  id = getDid()
+  readonly _type = 'div'
+  id
   readonly name: string
   attribute: AttributeInterface = new Attribute()
   children: Array<ComponentsInterface> = []
-  constructor({ name }: ComponentConstructorParamsInterface) {
+  parentId = NaN
+
+  constructor({ name, id }: ComponentConstructorParamsInterface) {
     this.name = name
+    this.id = id || getDid()
   }
   /**  method */
   appendChild = (child: ComponentsInterface) => {
     this.children = [...this.children, child]
   }
+  removeChild(child: ComponentsInterface) {
+    const id = child.id
+    const target = this.children.findIndex((item) => item.id == id)
+    if (~target) {
+      this.children.splice(target, 1)
+    }
+  }
+  clone() {
+    const _Creater = this.constructor as CloneCreaterType
+    const params = { parentId: this.parentId, name: this.name, id: this.id }
+    const _copyInstance = new _Creater(params)
+    const children = this.children
+    const _attribute = this.attribute
+    _copyInstance.attribute = _attribute
+    _copyInstance.children = children
+    return _copyInstance
+  }
+
+  /** getter */
+  get type() {
+    return this._type
+  }
 }
 /** 块级容器*/
 class BaseComponent extends Component implements LeafComponentInterface {
-  id = getDid()
-  parent: ComponentsInterface
+  parentId: number
   constructor(params: LeafComponentConstructorParamsInterface) {
     super(params)
-    const { parent } = params
-    this.parent = parent
+    const { parentId } = params
+    this.parentId = parentId
   }
 }
 /** 根节点容器*/
 class RootComponent extends Component implements RootComponentInterface {
-  parent = null
+  parentId = -1
 }
 /** 行内叶节点 */
 
